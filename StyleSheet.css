@@ -1,0 +1,272 @@
+* {
+	cursor: cell;
+	user-select: none;
+	overflow: hidden;
+}
+
+.background {
+	z-index: -1;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	position:absolute;
+	background-color: wheat;
+	width: 100%;
+	height: 100%;
+}
+
+.header {
+	min-height: 100px;
+	height: 100px;
+	min-width: 1200px;
+	width: 100%;
+	background-color: #321e00;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+	.divIcon {
+		min-width: 100px;
+		width: 100px;
+	}
+		.icon {
+			height: 90%;
+			border-radius: 50%;
+			border: 5px solid #321e00;
+		}
+	.divTitle {
+		width: 500px;
+	}
+		.title {
+			text-align: center;
+			color: wheat;
+			font-size: 350%;
+			font-weight: bold;
+		}
+	.divNav {
+		min-width: 600px;
+		width: 300px;
+		height: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		justify-content: space-around;
+		align-items: center;
+	}
+		.navButton1 {
+			height: 90px;
+			min-width: 110px;
+			width: 110px;
+			border-radius: 45%;
+			border: 5px solid #321e00;
+		}
+			.img1 {
+				height: 60%;
+			}
+
+.home {
+	min-height: 100%;
+	height: 100%;
+}
+	.homeText {
+		margin-top: 5%;
+		margin-bottom: 5%;
+		text-align: center;
+		color: #321e00;
+		font-size: 1000%;
+		font-weight: bold;
+	}
+	.divButtons {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		align-items: center;
+	}
+		.navButton2 {
+			width: 300px;
+			height: 300px;
+			border-radius: 40%;
+			border: 5px solid #321e00;
+		}
+			.navText {
+				text-align: center;
+				color: #321e00;
+				font-size: 300%;
+			}
+			.img2 {
+				margin-top: -5%;
+				margin-bottom: 10%;
+				height: 25%;
+				width: 25%;
+			}
+
+.info {
+	min-height: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+}
+	.infoText {
+		text-align: center;
+		color: #321e00;
+		font-size: 300%;
+		font-weight: bold;
+	}
+	.divInfoPar {
+		align-items: center;
+		width: 90%;
+	}
+		.firstInfoPar {
+			font-size: 30px;
+			color: #321e00;
+		}
+	.divProgrammingLanguages {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		align-items: center;
+	}
+		.proLanBut {
+			width: 200px;
+			height: 200px;
+			border-radius: 40%;
+			border: 5px solid #321e00;
+		}
+			.proLanText {
+				text-align: center;
+				color: #321e00;
+				font-size: 200%;
+			}
+
+.game {
+	min-height: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+}
+	.gameText {
+		text-align: center;
+		color: #321e00;
+		font-size: 300%;
+		font-weight: bold;
+	}
+	.divGamePar {
+		align-items: center;
+		width: 90%;
+	}
+		.firstGamePar {
+			font-size: 30px;
+			color: #321e00;
+		}
+	.divVideogames {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		align-items: center;
+	}
+		.vidBut {
+			width: 200px;
+			height: 200px;
+			border-radius: 40%;
+			border: 5px solid #321e00;
+		}
+			.vidText {
+				text-align: center;
+				color: #321e00;
+				font-size: 260%;
+			}
+
+.book {
+	min-height: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+}
+	.booksText {
+		text-align: center;
+		color: #321e00;
+		font-size: 300%;
+		font-weight: bold;
+	}
+	.divBookPar {
+		align-items: center;
+		width: 90%;
+	}
+		.firstBookPar {
+			font-size: 30px;
+			color: #321e00;
+		}
+	.divBooks {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		align-items: center;
+	}
+		.bookBut {
+			width: 200px;
+			height: 200px;
+			border-radius: 40%;
+			border: 5px solid #321e00;
+		}
+			.bookText {
+				text-align: center;
+				color: #321e00;
+				font-size: 260%;
+			}
+
+.mail {
+	min-height: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: center;
+}
+	.mailsText {
+		text-align: center;
+		color: #321e00;
+		font-size: 300%;
+		font-weight: bold;
+	}
+	.divMailPar {
+		align-items: center;
+		width: 90%;
+	}
+		.firstMailPar {
+			font-size: 30px;
+			color: #321e00;
+		}
+	.divMails {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-around;
+		align-items: center;
+	}
+		.mailBut {
+			width: 200px;
+			height: 200px;
+			border-radius: 40%;
+			border: 5px solid #321e00;
+		}
+			.mailText {
+				text-align: center;
+				color: #321e00;
+				font-size: 260%;
+			}
