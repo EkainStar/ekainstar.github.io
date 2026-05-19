@@ -4,552 +4,519 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ekain — A Personal Portrait</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#000508;
+  --deep:#020c14;
+  --dark:#051220;
+  --navy:#081a2e;
+  --panel:rgba(5,18,32,0.85);
+  --ice0:#e8f6ff;
+  --ice1:#b8dfff;
+  --ice2:#70c4f0;
+  --ice3:#35a5e0;
+  --ice4:#1a7ab5;
+  --glow:rgba(53,165,224,0.6);
+  --glow2:rgba(112,196,240,0.3);
+  --muted:#4a7a9b;
+  --dim:#1e3d55;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --title:'Cinzel',serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--void);
+  color:var(--ice0);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.8;
+  overflow-x:hidden;
+  cursor:none;
+}
 
-  :root {
-    --navy: #060e1c;
-    --navy2: #0c1a2e;
-    --navy3: #132038;
-    --ice1: #c8e6f5;
-    --ice2: #8cc9e8;
-    --ice3: #4a9ec7;
-    --ice4: #2176ae;
-    --white: #f0f6fc;
-    --muted: #7a9ab5;
-    --dim: #3d5a75;
-    --serif: 'Cormorant Garamond', Georgia, serif;
-    --sans: 'DM Sans', system-ui, sans-serif;
-    --transition: 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+/* CURSOR */
+#cursor{
+  position:fixed;width:10px;height:10px;
+  border-radius:50%;
+  background:var(--ice2);
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+  box-shadow:0 0 12px var(--glow),0 0 24px var(--glow2);
+  mix-blend-mode:screen;
+}
+#cursor.big{width:30px;height:30px;background:rgba(53,165,224,0.25);border:1px solid var(--ice3)}
 
-  html { scroll-behavior: smooth; }
+/* CANVAS */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none}
 
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: var(--sans);
-    font-weight: 300;
-    line-height: 1.75;
-    overflow-x: hidden;
-  }
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem 2.5rem;
+  background:rgba(0,5,8,0.75);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(53,165,224,0.12);
+}
+.nav-logo{
+  font-family:var(--title);font-size:1rem;font-weight:400;
+  color:var(--ice2);letter-spacing:.3em;text-decoration:none;
+  text-shadow:0 0 20px var(--glow);
+}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{
+  font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;
+  transition:color .3s,text-shadow .3s;
+}
+.nav-links a:hover{color:var(--ice1);text-shadow:0 0 12px var(--glow)}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-burger span{display:block;width:22px;height:1px;background:var(--ice3);transition:.3s}
+.mobile-menu{
+  display:none;position:fixed;inset:0;z-index:190;
+  background:rgba(0,5,8,0.97);backdrop-filter:blur(20px);
+  flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;
+  list-style:none;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  font-family:var(--title);font-size:1.5rem;letter-spacing:.2em;
+  color:var(--ice1);text-decoration:none;
+  text-shadow:0 0 20px var(--glow);
+  transition:color .3s;
+}
 
-  /* ── NAV ── */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem 3rem;
-    background: rgba(6,14,28,0.85);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(74,158,199,0.15);
-  }
-  .nav-logo {
-    font-family: var(--serif);
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--ice2);
-    letter-spacing: 0.15em;
-    text-decoration: none;
-  }
-  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color var(--transition);
-  }
-  .nav-links a:hover { color: var(--ice1); }
+/* HERO */
+#hero{
+  position:relative;height:100vh;min-height:600px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;text-align:center;padding:0 1.5rem;
+}
+.hero-void{
+  position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 50% at 50% 60%,rgba(10,40,70,0.4) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-glow-ring{
+  position:absolute;
+  width:min(500px,90vw);height:min(500px,90vw);
+  border-radius:50%;
+  border:1px solid rgba(53,165,224,0.08);
+  box-shadow:0 0 60px rgba(53,165,224,0.06) inset,0 0 60px rgba(53,165,224,0.04);
+  animation:ringPulse 6s ease-in-out infinite;
+  pointer-events:none;
+}
+.hero-glow-ring2{
+  position:absolute;
+  width:min(700px,110vw);height:min(700px,110vw);
+  border-radius:50%;
+  border:1px solid rgba(53,165,224,0.04);
+  animation:ringPulse 8s 2s ease-in-out infinite;
+  pointer-events:none;
+}
+.hero-content{position:relative;z-index:2}
+.hero-tag{
+  font-size:.68rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--ice3);margin-bottom:1.2rem;
+  opacity:0;animation:fadeUp 1s .4s forwards;
+}
+.hero-snowflake-svg{
+  width:min(90px,18vw);height:min(90px,18vw);margin:0 auto 1.2rem;
+  opacity:0;animation:fadeUp 1s .2s forwards,floatSpin 20s linear infinite;
+  filter:drop-shadow(0 0 18px var(--glow)) drop-shadow(0 0 40px rgba(53,165,224,0.3));
+}
+.hero-name{
+  font-family:var(--title);
+  font-size:clamp(4rem,16vw,10rem);
+  font-weight:300;line-height:.9;letter-spacing:.15em;
+  color:var(--ice0);
+  opacity:0;animation:fadeUp 1s .6s forwards;
+  text-shadow:0 0 40px rgba(112,196,240,0.4),0 0 80px rgba(53,165,224,0.2);
+}
+.hero-sub{
+  margin-top:1.8rem;font-size:clamp(.75rem,.9rem+.5vw,1rem);
+  color:var(--muted);font-weight:300;letter-spacing:.05em;
+  opacity:0;animation:fadeUp 1s 1s forwards;
+  line-height:1.6;
+}
+.hero-quote{
+  margin-top:2.5rem;max-width:480px;
+  font-family:var(--serif);font-size:clamp(.95rem,1rem+.3vw,1.2rem);
+  font-style:italic;color:rgba(184,223,255,0.5);
+  opacity:0;animation:fadeUp 1s 1.3s forwards;
+}
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  color:var(--muted);font-size:.62rem;letter-spacing:.25em;text-transform:uppercase;
+  opacity:0;animation:fadeUp 1s 1.8s forwards;
+}
+.scroll-line{
+  width:1px;height:40px;
+  background:linear-gradient(to bottom,var(--ice3),transparent);
+  animation:scrollPulse 2s 2.5s infinite;
+}
 
-  /* ── HERO ── */
-  #hero {
-    position: relative;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    text-align: center;
-  }
-  #snowCanvas {
-    position: absolute;
-    inset: 0;
-    width: 100%; height: 100%;
-    pointer-events: none;
-  }
-  .hero-content { position: relative; z-index: 2; }
-  .hero-tag {
-    font-size: 0.72rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--ice3);
-    margin-bottom: 1.2rem;
-    opacity: 0;
-    animation: fadeUp 1s 0.3s forwards;
-  }
-  .hero-name {
-    font-family: var(--serif);
-    font-size: clamp(5rem, 14vw, 11rem);
-    font-weight: 300;
-    line-height: 0.9;
-    letter-spacing: 0.08em;
-    color: var(--white);
-    opacity: 0;
-    animation: fadeUp 1s 0.6s forwards;
-  }
-  .hero-sub {
-    margin-top: 1.8rem;
-    font-size: 1rem;
-    color: var(--muted);
-    font-weight: 300;
-    letter-spacing: 0.05em;
-    opacity: 0;
-    animation: fadeUp 1s 0.9s forwards;
-  }
-  .hero-snowflake {
-    font-size: 1.4rem;
-    color: var(--ice3);
-    margin-bottom: 0.5rem;
-    display: block;
-    opacity: 0;
-    animation: fadeUp 1s 0.15s forwards;
-  }
-  .scroll-hint {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--dim);
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0;
-    animation: fadeUp 1s 1.4s forwards;
-  }
-  .scroll-line {
-    width: 1px; height: 40px;
-    background: linear-gradient(to bottom, var(--ice3), transparent);
-    animation: scrollPulse 2s 2s infinite;
-  }
+/* SECTION */
+section{
+  position:relative;z-index:10;
+  max-width:900px;margin:0 auto;
+  padding:6rem 2rem;
+}
+section+section::before{
+  content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);
+  width:1px;height:100%;
+  background:linear-gradient(to bottom,rgba(53,165,224,0.15),transparent);
+  pointer-events:none;
+}
+.section-label{
+  font-size:.62rem;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--ice3);margin-bottom:.6rem;
+  text-shadow:0 0 10px var(--glow);
+}
+.section-title{
+  font-family:var(--serif);
+  font-size:clamp(1.8rem,4vw,3rem);
+  font-weight:300;line-height:1.1;
+  color:var(--ice0);margin-bottom:2.5rem;
+}
+.section-title em{font-style:italic;color:var(--ice2);text-shadow:0 0 20px rgba(112,196,240,0.5)}
+p{margin-bottom:1.3rem;color:rgba(184,223,255,0.8);font-size:clamp(.85rem,.9rem+.1vw,.97rem)}
+p:last-child{margin-bottom:0}
 
-  /* ── SECTIONS ── */
-  section {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 6rem 2rem;
-  }
-  section + section { border-top: 1px solid rgba(74,158,199,0.1); }
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.visible{opacity:1;transform:none}
+.reveal-delay-1{transition-delay:.1s}
+.reveal-delay-2{transition-delay:.2s}
+.reveal-delay-3{transition-delay:.3s}
+.reveal-delay-4{transition-delay:.4s}
+.reveal-delay-5{transition-delay:.5s}
 
-  .section-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--ice3);
-    margin-bottom: 0.8rem;
-  }
-  .section-title {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 300;
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 2.5rem;
-  }
-  .section-title em { font-style: italic; color: var(--ice2); }
+/* GLOW DIVIDER */
+.glow-divider{
+  height:1px;margin:2rem 0;
+  background:linear-gradient(to right,transparent,var(--ice3),transparent);
+  box-shadow:0 0 8px var(--glow);
+}
 
-  p { margin-bottom: 1.3rem; color: var(--ice1); opacity: 0.85; font-size: 0.97rem; }
-  p:last-child { margin-bottom: 0; }
+/* BLOCKQUOTE */
+blockquote{
+  border-left:2px solid var(--ice3);
+  padding:1.2rem 0 1.2rem 2rem;margin:2.5rem 0;
+  font-family:var(--serif);font-size:clamp(1rem,1.2rem+.2vw,1.35rem);
+  font-style:italic;color:var(--ice1);line-height:1.5;
+  position:relative;
+}
+blockquote::before{
+  content:'';position:absolute;left:-1px;top:0;bottom:0;width:2px;
+  background:linear-gradient(to bottom,var(--ice2),var(--ice4));
+  box-shadow:0 0 12px var(--glow);
+}
 
-  /* REVEAL ANIMATION */
-  .reveal {
-    opacity: 0;
-    transform: translateY(28px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
+/* INFO GRID */
+.info-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:.8rem;margin:2.5rem 0;
+}
+.info-card{
+  background:rgba(5,18,32,0.7);
+  border:1px solid rgba(53,165,224,0.18);
+  border-radius:8px;padding:1.1rem 1.2rem;
+  transition:border-color .4s,box-shadow .4s,transform .4s;
+  backdrop-filter:blur(8px);
+}
+.info-card:hover{
+  border-color:rgba(53,165,224,0.55);
+  box-shadow:0 0 20px rgba(53,165,224,0.15),inset 0 0 20px rgba(53,165,224,0.05);
+  transform:translateY(-2px);
+}
+.info-card-label{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.35rem}
+.info-card-value{font-size:1rem;color:var(--ice0);font-weight:400}
 
-  /* ── QUOTE ── */
-  blockquote {
-    border-left: 2px solid var(--ice3);
-    padding: 1.2rem 0 1.2rem 2rem;
-    margin: 2.5rem 0;
-    font-family: var(--serif);
-    font-size: 1.35rem;
-    font-style: italic;
-    color: var(--ice1);
-    line-height: 1.5;
-  }
+/* LANGUAGE BARS */
+.lang-list{display:flex;flex-direction:column;gap:1.4rem;margin:2rem 0}
+.lang-header{display:flex;justify-content:space-between;margin-bottom:.45rem}
+.lang-name{font-size:.88rem;color:var(--ice1);font-weight:400}
+.lang-level{font-size:.73rem;color:var(--ice3);letter-spacing:.08em;text-shadow:0 0 8px var(--glow)}
+.lang-bar-bg{height:2px;background:rgba(53,165,224,0.12);border-radius:2px;overflow:hidden}
+.lang-bar-fill{
+  height:100%;width:0;border-radius:2px;
+  background:linear-gradient(90deg,var(--ice4),var(--ice2));
+  transition:width 1.4s cubic-bezier(.22,1,.36,1);
+  box-shadow:0 0 8px var(--glow);
+}
 
-  /* ── INFO CARDS (Identity) ── */
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 1rem;
-    margin: 2.5rem 0;
-  }
-  .info-card {
-    background: var(--navy2);
-    border: 1px solid rgba(74,158,199,0.18);
-    border-radius: 8px;
-    padding: 1.2rem 1.4rem;
-    transition: border-color var(--transition), background var(--transition);
-  }
-  .info-card:hover {
-    border-color: rgba(74,158,199,0.5);
-    background: var(--navy3);
-  }
-  .info-card-label {
-    font-size: 0.66rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.4rem;
-  }
-  .info-card-value {
-    font-size: 1.05rem;
-    color: var(--white);
-    font-weight: 400;
-  }
+/* CREATION CARDS */
+.creations-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:1rem;margin:2rem 0;
+}
+.creation-card{
+  background:rgba(5,18,32,0.7);
+  border:1px solid rgba(53,165,224,0.14);
+  border-radius:8px;padding:1.4rem;
+  transition:transform .4s var(--ease),border-color .4s,box-shadow .4s;
+  backdrop-filter:blur(8px);cursor:default;
+}
+.creation-card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(53,165,224,0.5);
+  box-shadow:0 8px 30px rgba(53,165,224,0.12),0 0 0 1px rgba(53,165,224,0.08);
+}
+.creation-icon{font-size:1.5rem;margin-bottom:.7rem;display:block;filter:drop-shadow(0 0 6px var(--glow))}
+.creation-title{font-size:.9rem;font-weight:500;color:var(--ice0);margin-bottom:.3rem}
+.creation-desc{font-size:.78rem;color:var(--muted);margin:0;line-height:1.5}
 
-  /* ── LANGUAGE BARS ── */
-  .lang-list { display: flex; flex-direction: column; gap: 1.4rem; margin: 2.5rem 0; }
-  .lang-item {}
-  .lang-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
-  .lang-name { font-size: 0.9rem; color: var(--ice1); font-weight: 400; }
-  .lang-level { font-size: 0.78rem; color: var(--ice3); letter-spacing: 0.08em; }
-  .lang-bar-bg {
-    height: 3px;
-    background: rgba(74,158,199,0.15);
-    border-radius: 2px;
-    overflow: hidden;
-  }
-  .lang-bar-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--ice4), var(--ice2));
-    border-radius: 2px;
-    width: 0;
-    transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-  }
+/* GAMES */
+.games-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+  gap:.8rem;margin:2rem 0;
+}
+.game-card{
+  background:rgba(5,18,32,0.7);
+  border:1px solid rgba(53,165,224,0.14);
+  border-radius:8px;padding:1rem .8rem;
+  text-align:center;
+  transition:transform .4s var(--ease),border-color .4s,box-shadow .4s;
+  cursor:default;
+}
+.game-card:hover{
+  transform:translateY(-4px) scale(1.03);
+  border-color:rgba(112,196,240,0.5);
+  box-shadow:0 0 20px rgba(53,165,224,0.15);
+}
+.game-icon{font-size:1.7rem;margin-bottom:.4rem;display:block}
+.game-name{font-size:.78rem;color:var(--ice1);font-weight:400}
+.game-fav{font-size:.62rem;color:var(--ice3);margin-top:.2rem;text-shadow:0 0 8px var(--glow)}
 
-  /* ── ACHIEVEMENT CHIPS ── */
-  .chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 2rem 0; }
-  .chip {
-    background: rgba(74,158,199,0.1);
-    border: 1px solid rgba(74,158,199,0.25);
-    border-radius: 20px;
-    padding: 0.35rem 1rem;
-    font-size: 0.82rem;
-    color: var(--ice1);
-    transition: background var(--transition), border-color var(--transition);
-  }
-  .chip:hover {
-    background: rgba(74,158,199,0.2);
-    border-color: rgba(74,158,199,0.5);
-  }
-  .chip.accent {
-    background: rgba(74,158,199,0.18);
-    border-color: var(--ice3);
-    color: var(--ice2);
-    font-weight: 400;
-  }
+/* TRAIT CARDS */
+.traits-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1.2rem;margin:2rem 0;
+}
+.trait-card{
+  background:rgba(5,18,32,0.7);
+  border:1px solid rgba(53,165,224,0.14);
+  border-radius:8px;padding:1.5rem;
+  transition:border-color .4s,box-shadow .4s;
+  backdrop-filter:blur(8px);
+}
+.trait-card:hover{
+  border-color:rgba(53,165,224,0.4);
+  box-shadow:0 0 25px rgba(53,165,224,0.1);
+}
+.trait-card h3{
+  font-family:var(--serif);font-size:1.05rem;font-weight:400;
+  color:var(--ice2);margin-bottom:.6rem;
+  text-shadow:0 0 10px rgba(112,196,240,0.3);
+}
+.trait-card p{font-size:.82rem;opacity:.75;margin:0}
 
-  /* ── CREATIONS GRID ── */
-  .creations-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1rem;
-    margin: 2rem 0;
-  }
-  .creation-card {
-    background: var(--navy2);
-    border: 1px solid rgba(74,158,199,0.15);
-    border-radius: 8px;
-    padding: 1.4rem;
-    transition: transform var(--transition), border-color var(--transition);
-    cursor: default;
-  }
-  .creation-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(74,158,199,0.4);
-  }
-  .creation-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.7rem;
-    display: block;
-  }
-  .creation-title {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--white);
-    margin-bottom: 0.3rem;
-  }
-  .creation-desc { font-size: 0.8rem; color: var(--muted); margin: 0; }
+/* ICE CARD */
+.ice-card{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(26,122,181,0.1),rgba(8,26,46,0.9));
+  border:1px solid rgba(53,165,224,0.35);
+  border-radius:12px;padding:2.5rem;margin:2.5rem 0;
+  box-shadow:0 0 40px rgba(53,165,224,0.1),inset 0 0 40px rgba(53,165,224,0.04);
+}
+.ice-card::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 20%,rgba(53,165,224,0.08),transparent),
+    radial-gradient(ellipse 40% 60% at 20% 80%,rgba(112,196,240,0.05),transparent);
+  pointer-events:none;
+}
+.ice-card-bg-flake{
+  position:absolute;top:-20px;right:-10px;
+  font-size:8rem;opacity:.04;pointer-events:none;
+  animation:floatSpin 30s linear infinite;
+  filter:blur(1px);
+}
+.ice-card-title{
+  font-family:var(--serif);font-size:1.4rem;font-style:italic;
+  color:var(--ice2);margin-bottom:1rem;
+  text-shadow:0 0 15px rgba(112,196,240,0.4);
+}
+.ice-card p{font-size:.93rem;color:var(--ice1)}
 
-  /* ── GAMES ── */
-  .games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 0.8rem;
-    margin: 2rem 0;
-  }
-  .game-card {
-    background: var(--navy2);
-    border: 1px solid rgba(74,158,199,0.15);
-    border-radius: 8px;
-    padding: 1rem;
-    text-align: center;
-    transition: transform var(--transition), border-color var(--transition);
-    cursor: default;
-  }
-  .game-card:hover {
-    transform: translateY(-3px);
-    border-color: rgba(74,158,199,0.4);
-  }
-  .game-icon { font-size: 1.6rem; margin-bottom: 0.4rem; display: block; }
-  .game-name { font-size: 0.82rem; color: var(--ice1); font-weight: 400; }
-  .game-fav { font-size: 0.68rem; color: var(--ice3); margin-top: 0.2rem; letter-spacing: 0.05em; }
+/* CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:.55rem;margin:2rem 0}
+.chip{
+  background:rgba(53,165,224,0.08);
+  border:1px solid rgba(53,165,224,0.22);
+  border-radius:20px;padding:.3rem .9rem;
+  font-size:.78rem;color:var(--ice1);
+  transition:background .3s,border-color .3s,box-shadow .3s;cursor:default;
+}
+.chip:hover{
+  background:rgba(53,165,224,0.18);
+  border-color:rgba(53,165,224,0.55);
+  box-shadow:0 0 12px rgba(53,165,224,0.2);
+}
+.chip.accent{background:rgba(53,165,224,0.14);border-color:var(--ice3);color:var(--ice2);font-weight:400}
 
-  /* ── INNER WORLD ── */
-  .traits-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.2rem;
-    margin: 2rem 0;
-  }
-  .trait-card {
-    background: var(--navy2);
-    border: 1px solid rgba(74,158,199,0.15);
-    border-radius: 8px;
-    padding: 1.5rem;
-    transition: border-color var(--transition);
-  }
-  .trait-card:hover { border-color: rgba(74,158,199,0.35); }
-  .trait-card h3 {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    font-weight: 400;
-    color: var(--ice2);
-    margin-bottom: 0.6rem;
-  }
-  .trait-card p { font-size: 0.85rem; opacity: 0.8; margin: 0; }
+/* MENU */
+.menu-container{margin:2rem 0}
+.menu-days{
+  display:grid;grid-template-columns:repeat(7,1fr);gap:.4rem;margin-bottom:.8rem;
+}
+.menu-day-btn{
+  background:rgba(5,18,32,0.7);
+  border:1px solid rgba(53,165,224,0.18);
+  border-radius:6px;padding:.55rem .2rem;
+  text-align:center;cursor:pointer;
+  font-family:var(--sans);
+  transition:background .3s,border-color .3s,box-shadow .3s;
+}
+.menu-day-btn:hover,.menu-day-btn.active{
+  background:rgba(53,165,224,0.12);
+  border-color:var(--ice3);
+  box-shadow:0 0 15px rgba(53,165,224,0.2);
+}
+.day-abbr{display:block;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.15rem}
+.day-num{font-size:.95rem;color:var(--ice0);font-weight:400}
+.menu-day-btn.active .day-num,.menu-day-btn:hover .day-num{color:var(--ice2);text-shadow:0 0 8px var(--glow)}
+.menu-detail{
+  background:rgba(5,18,32,0.8);
+  border:1px solid rgba(53,165,224,0.2);
+  border-radius:8px;padding:1.5rem;
+  box-shadow:inset 0 0 20px rgba(53,165,224,0.04);
+  transition:opacity .3s,transform .3s;
+}
+.menu-detail-day{font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ice3);margin-bottom:.4rem;text-shadow:0 0 8px var(--glow)}
+.menu-detail-meal{font-family:var(--serif);font-size:clamp(1.1rem,1.4rem,1.6rem);font-weight:300;color:var(--ice0)}
 
-  /* ICE METAPHOR CARD */
-  .ice-card {
-    background: linear-gradient(135deg, rgba(33,118,174,0.15), rgba(74,158,199,0.08));
-    border: 1px solid rgba(74,158,199,0.35);
-    border-radius: 12px;
-    padding: 2.5rem;
-    margin: 2.5rem 0;
-    position: relative;
-    overflow: hidden;
-  }
-  .ice-card::before {
-    content: '❄';
-    position: absolute;
-    top: -10px; right: 20px;
-    font-size: 7rem;
-    opacity: 0.05;
-    pointer-events: none;
-    line-height: 1;
-  }
-  .ice-card-title {
-    font-family: var(--serif);
-    font-size: 1.5rem;
-    font-style: italic;
-    color: var(--ice2);
-    margin-bottom: 1rem;
-  }
-  .ice-card p { color: var(--ice1); font-size: 0.95rem; }
+/* SIDRERIA */
+.sidreria-courses{display:flex;flex-direction:column;gap:.55rem;margin:1.5rem 0}
+.course-item{
+  display:flex;align-items:center;gap:1rem;
+  padding:.75rem 1.2rem;
+  background:rgba(5,18,32,0.7);
+  border:1px solid rgba(53,165,224,0.13);
+  border-radius:6px;
+  transition:border-color .3s,background .3s,transform .3s;cursor:default;
+}
+.course-item:hover{
+  border-color:rgba(53,165,224,0.4);
+  background:rgba(8,26,46,0.9);transform:translateX(4px);
+}
+.course-num{font-family:var(--serif);font-size:1rem;color:var(--ice3);opacity:.7;width:1.2rem;flex-shrink:0}
+.course-name{font-size:.88rem;color:var(--ice1)}
 
-  /* ── WEEKLY MENU ── */
-  .menu-container { margin: 2rem 0; }
-  .menu-days {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.4rem;
-    margin-bottom: 1rem;
-  }
-  .menu-day-btn {
-    background: var(--navy2);
-    border: 1px solid rgba(74,158,199,0.2);
-    border-radius: 6px;
-    padding: 0.6rem 0.3rem;
-    text-align: center;
-    cursor: pointer;
-    transition: background var(--transition), border-color var(--transition);
-    font-family: var(--sans);
-  }
-  .menu-day-btn .day-abbr {
-    display: block;
-    font-size: 0.65rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 0.2rem;
-  }
-  .menu-day-btn .day-num {
-    font-size: 1rem;
-    color: var(--white);
-    font-weight: 400;
-  }
-  .menu-day-btn.active, .menu-day-btn:hover {
-    background: rgba(74,158,199,0.15);
-    border-color: var(--ice3);
-  }
-  .menu-day-btn.active .day-num, .menu-day-btn:hover .day-num { color: var(--ice2); }
-  .menu-detail {
-    background: var(--navy2);
-    border: 1px solid rgba(74,158,199,0.2);
-    border-radius: 8px;
-    padding: 1.5rem;
-    min-height: 80px;
-    transition: all var(--transition);
-  }
-  .menu-detail-day {
-    font-size: 0.72rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ice3);
-    margin-bottom: 0.4rem;
-  }
-  .menu-detail-meal {
-    font-family: var(--serif);
-    font-size: 1.4rem;
-    font-weight: 300;
-    color: var(--white);
-  }
+/* PETS */
+.pets-row{display:flex;gap:.8rem;margin:1.5rem 0;flex-wrap:wrap}
+.pet-card{
+  flex:1;min-width:150px;
+  background:rgba(5,18,32,0.7);
+  border:1px solid rgba(53,165,224,0.16);
+  border-radius:8px;padding:1rem 1.3rem;
+  display:flex;align-items:center;gap:.9rem;
+  transition:border-color .3s,box-shadow .3s;
+}
+.pet-card:hover{border-color:rgba(53,165,224,0.4);box-shadow:0 0 15px rgba(53,165,224,0.1)}
+.pet-emoji{font-size:1.8rem}
+.pet-name{font-size:.95rem;color:var(--ice0);font-weight:400}
+.pet-type{font-size:.72rem;color:var(--muted)}
 
-  /* PETS */
-  .pets-row {
-    display: flex;
-    gap: 1rem;
-    margin: 1.5rem 0;
-    flex-wrap: wrap;
-  }
-  .pet-card {
-    background: var(--navy2);
-    border: 1px solid rgba(74,158,199,0.18);
-    border-radius: 8px;
-    padding: 1rem 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex: 1;
-    min-width: 180px;
-    transition: border-color var(--transition);
-  }
-  .pet-card:hover { border-color: rgba(74,158,199,0.4); }
-  .pet-emoji { font-size: 2rem; }
-  .pet-name { font-size: 1rem; color: var(--white); font-weight: 400; }
-  .pet-type { font-size: 0.78rem; color: var(--muted); }
+/* SLEEP */
+.sleep-row{display:flex;gap:.8rem;margin:1.5rem 0;flex-wrap:wrap}
+.sleep-card{
+  flex:1;min-width:120px;
+  background:rgba(5,18,32,0.7);
+  border:1px solid rgba(53,165,224,0.16);
+  border-radius:8px;padding:1.2rem;text-align:center;
+}
+.sleep-hours{
+  font-family:var(--serif);font-size:2.5rem;font-weight:300;
+  color:var(--ice2);line-height:1;margin-bottom:.3rem;
+  text-shadow:0 0 20px rgba(112,196,240,0.5);
+}
+.sleep-label{font-size:.68rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
 
-  /* SIDERIA */
-  .sidreria-courses {
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    margin: 1.5rem 0;
-    counter-reset: course;
-  }
-  .course-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.8rem 1.2rem;
-    background: var(--navy2);
-    border: 1px solid rgba(74,158,199,0.15);
-    border-radius: 6px;
-    counter-increment: course;
-    transition: border-color var(--transition), background var(--transition);
-  }
-  .course-item:hover {
-    border-color: rgba(74,158,199,0.35);
-    background: var(--navy3);
-  }
-  .course-num {
-    font-family: var(--serif);
-    font-size: 1.1rem;
-    color: var(--ice3);
-    opacity: 0.6;
-    width: 1.5rem;
-    flex-shrink: 0;
-  }
-  .course-name { font-size: 0.92rem; color: var(--ice1); }
+/* FINAL PORTRAIT */
+.portrait-glow{
+  position:relative;text-align:center;padding:3rem 2rem;
+  background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(10,40,70,0.3),transparent);
+}
 
-  /* ── SLEEP ── */
-  .sleep-row {
-    display: flex;
-    gap: 1rem;
-    margin: 1.5rem 0;
-    flex-wrap: wrap;
-  }
-  .sleep-card {
-    flex: 1;
-    min-width: 140px;
-    background: var(--navy2);
-    border: 1px solid rgba(74,158,199,0.18);
-    border-radius: 8px;
-    padding: 1.2rem;
-    text-align: center;
-  }
-  .sleep-hours {
-    font-family: var(--serif);
-    font-size: 2.8rem;
-    font-weight: 300;
-    color: var(--ice2);
-    line-height: 1;
-    margin-bottom: 0.3rem;
-  }
-  .sleep-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+/* FOOTER */
+footer{
+  position:relative;z-index:10;
+  text-align:center;padding:4rem 2rem;
+  border-top:1px solid rgba(53,165,224,0.1);
+  color:var(--dim);font-size:.78rem;letter-spacing:.08em;
+}
+.footer-flake{
+  font-size:2rem;color:var(--ice3);display:block;margin-bottom:1rem;
+  text-shadow:0 0 20px var(--glow),0 0 40px rgba(53,165,224,0.3);
+  animation:floatSpin 15s linear infinite;
+}
 
-  /* ── FOOTER ── */
-  footer {
-    text-align: center;
-    padding: 4rem 2rem;
-    border-top: 1px solid rgba(74,158,199,0.1);
-    color: var(--dim);
-    font-size: 0.82rem;
-    letter-spacing: 0.05em;
-  }
-  footer .footer-snow { font-size: 1.8rem; color: var(--ice3); display: block; margin-bottom: 1rem; opacity: 0.6; }
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.15)}}
+@keyframes ringPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.02)}}
+@keyframes floatSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes crystallize{
+  0%{clip-path:polygon(50% 50%,50% 50%,50% 50%,50% 50%,50% 50%,50% 50%)}
+  100%{clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%)}
+}
+@keyframes shimmer{
+  0%,100%{opacity:.04}50%{opacity:.09}
+}
 
-  /* ANIMATIONS */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: none; }
-  }
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(1); }
-    50% { opacity: 1; transform: scaleY(1.2); }
-  }
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--void)}
+::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px}
 
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--navy); }
-  ::-webkit-scrollbar-thumb { background: var(--dim); border-radius: 2px; }
+/* MOBILE */
+@media(max-width:700px){
+  nav{padding:.8rem 1.2rem}
+  .nav-links{display:none}
+  .nav-burger{display:flex}
+  body{cursor:auto}
+  #cursor{display:none}
+  section{padding:4rem 1.2rem}
+  .info-grid{grid-template-columns:repeat(2,1fr)}
+  .creations-grid{grid-template-columns:1fr 1fr}
+  .games-grid{grid-template-columns:repeat(3,1fr)}
+  .traits-grid{grid-template-columns:1fr}
+  .menu-days{gap:.25rem}
+  .day-abbr{font-size:.52rem}
+  .day-num{font-size:.85rem}
+  .menu-day-btn{padding:.45rem .1rem}
+}
+@media(max-width:400px){
+  .info-grid{grid-template-columns:1fr 1fr}
+  .creations-grid{grid-template-columns:1fr}
+  .games-grid{grid-template-columns:repeat(2,1fr)}
+  .menu-days{grid-template-columns:repeat(4,1fr)}
+}
+
+/* SNOWFLAKE SVG */
+.sf{stroke:var(--ice2);stroke-width:1.5;fill:none;stroke-linecap:round}
 </style>
 </head>
 <body>
 
+<div id="cursor"></div>
+<canvas id="bg"></canvas>
+
 <!-- NAV -->
 <nav>
-  <a href="#hero" class="nav-logo">❄ Ekain</a>
+  <a href="#hero" class="nav-logo">❄ EKAIN</a>
   <ul class="nav-links">
     <li><a href="#identity">Identity</a></li>
     <li><a href="#mind">Mind</a></li>
@@ -557,16 +524,43 @@
     <li><a href="#life">Daily Life</a></li>
     <li><a href="#portrait">Portrait</a></li>
   </ul>
+  <div class="nav-burger" id="burger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </div>
 </nav>
+
+<ul class="mobile-menu" id="mobileMenu">
+  <li><a href="#identity" class="mm-link">Identity</a></li>
+  <li><a href="#mind" class="mm-link">Mind</a></li>
+  <li><a href="#inner" class="mm-link">Inner World</a></li>
+  <li><a href="#life" class="mm-link">Daily Life</a></li>
+  <li><a href="#portrait" class="mm-link">Portrait</a></li>
+</ul>
 
 <!-- HERO -->
 <div id="hero">
-  <canvas id="snowCanvas"></canvas>
+  <div class="hero-void"></div>
+  <div class="hero-glow-ring"></div>
+  <div class="hero-glow-ring2"></div>
   <div class="hero-content">
-    <span class="hero-snowflake">❄</span>
+    <svg class="hero-snowflake-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g class="sf" transform="translate(50,50)">
+        <line x1="0" y1="-42" x2="0" y2="42"/>
+        <line x1="-36.4" y1="-21" x2="36.4" y2="21"/>
+        <line x1="36.4" y1="-21" x2="-36.4" y2="21"/>
+        <line x1="-10" y1="-20" x2="0" y2="-42"/><line x1="10" y1="-20" x2="0" y2="-42"/>
+        <line x1="-10" y1="20" x2="0" y2="42"/><line x1="10" y1="20" x2="0" y2="42"/>
+        <line x1="-42" y1="-5" x2="-36.4" y2="21"/><line x1="-20" y1="5" x2="-36.4" y2="21"/>
+        <line x1="42" y1="-5" x2="36.4" y2="21"/><line x1="20" y1="5" x2="36.4" y2="21"/>
+        <line x1="-22" y1="-30" x2="-36.4" y2="-21"/><line x1="-16" y1="-14" x2="-36.4" y2="-21"/>
+        <line x1="22" y1="-30" x2="36.4" y2="-21"/><line x1="16" y1="-14" x2="36.4" y2="-21"/>
+        <circle cx="0" cy="0" r="4" stroke-width="1.5"/>
+      </g>
+    </svg>
     <div class="hero-tag">A Personal Portrait · Donostia-San Sebastián, 2026</div>
     <h1 class="hero-name">EKAIN</h1>
     <div class="hero-sub">Born December 29, 2008 &nbsp;·&nbsp; Basque Country &nbsp;·&nbsp; 17 years old</div>
+    <div class="hero-quote">"I feel everything with far more intensity than I let on."</div>
   </div>
   <div class="scroll-hint">
     <div class="scroll-line"></div>
@@ -574,322 +568,157 @@
   </div>
 </div>
 
-<!-- I. IDENTITY -->
+<!-- SECTION I -->
 <section id="identity">
-  <div class="reveal">
-    <div class="section-label">Section I</div>
-    <h2 class="section-title">Who is <em>Ekain</em></h2>
-  </div>
+  <div class="reveal"><div class="section-label">Section I</div>
+  <h2 class="section-title">Who is <em>Ekain</em></h2></div>
+
   <div class="reveal reveal-delay-1">
-    <p>Ekain is a seventeen-year-old from Donostia-San Sebastián who has just finished bachillerato with a grade average of 9.9 out of 10. A number that speaks, but one that barely scratches the surface of who he really is.</p>
+    <p>Ekain is a seventeen-year-old from Donostia-San Sebastián who has just finished bachillerato with a grade average of <strong style="color:var(--ice2);font-weight:400">9.9 out of 10</strong>. A number that speaks, but one that barely scratches the surface of who he really is.</p>
     <p>He feels completely Basque and loves his culture deeply — without extremism. His identity is something he carries within, not something he imposes or fights for with violence.</p>
   </div>
 
   <div class="info-grid reveal reveal-delay-2">
-    <div class="info-card">
-      <div class="info-card-label">Full name</div>
-      <div class="info-card-value">Ekain</div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-label">Born</div>
-      <div class="info-card-value">29 Dec 2008</div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-label">City</div>
-      <div class="info-card-value">Donostia-SS</div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-label">Status</div>
-      <div class="info-card-value">Single</div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-label">Personality</div>
-      <div class="info-card-value">Very introverted</div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-label">Style</div>
-      <div class="info-card-value">Highly organised</div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-label">Next step</div>
-      <div class="info-card-value">IT & AI — Deusto</div>
-    </div>
-    <div class="info-card">
-      <div class="info-card-label">Bachillerato avg.</div>
-      <div class="info-card-value">9.9 / 10</div>
-    </div>
+    <div class="info-card"><div class="info-card-label">Name</div><div class="info-card-value">Ekain</div></div>
+    <div class="info-card"><div class="info-card-label">Born</div><div class="info-card-value">29 Dec 2008</div></div>
+    <div class="info-card"><div class="info-card-label">City</div><div class="info-card-value">Donostia-SS</div></div>
+    <div class="info-card"><div class="info-card-label">Status</div><div class="info-card-value">Single</div></div>
+    <div class="info-card"><div class="info-card-label">Personality</div><div class="info-card-value">Very introverted</div></div>
+    <div class="info-card"><div class="info-card-label">Style</div><div class="info-card-value">Highly organised</div></div>
+    <div class="info-card"><div class="info-card-label">Next step</div><div class="info-card-value">IT & AI — Deusto</div></div>
+    <div class="info-card"><div class="info-card-label">Bachillerato</div><div class="info-card-value">9.9 / 10</div></div>
   </div>
 </section>
 
-<!-- II. MIND -->
+<!-- SECTION II -->
 <section id="mind">
-  <div class="reveal">
-    <div class="section-label">Section II</div>
-    <h2 class="section-title">An <em>Extraordinary</em> Mind</h2>
-  </div>
+  <div class="reveal"><div class="section-label">Section II</div>
+  <h2 class="section-title">An <em>Extraordinary</em> Mind</h2></div>
 
   <div class="reveal reveal-delay-1">
-    <p>His curiosity has no disciplinary borders — mathematics, physics, biology, philosophy, programming. That same curiosity led him to <strong style="color:var(--ice2); font-weight:400">finish first in the Physics Olympiad of the Basque Country</strong>. Next year he will begin a double degree in IT and Artificial Intelligence at the University of Deusto.</p>
+    <p>His curiosity crosses every border — mathematics, physics, biology, philosophy, programming. That same curiosity led him to <strong style="color:var(--ice2);font-weight:400">finish first in the Physics Olympiad of the Basque Country</strong>. Next year he will begin a double degree in IT and Artificial Intelligence at the University of Deusto.</p>
   </div>
 
   <div class="reveal reveal-delay-2">
-    <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ice2);margin:2rem 0 1rem;">Languages</h3>
+    <h3 style="font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--ice2);margin:2rem 0 .8rem;text-shadow:0 0 10px rgba(112,196,240,0.3)">Languages</h3>
     <div class="lang-list" id="langList">
-      <div class="lang-item">
-        <div class="lang-header">
-          <span class="lang-name">English</span>
-          <span class="lang-level">C2 — Mastery</span>
-        </div>
-        <div class="lang-bar-bg"><div class="lang-bar-fill" data-width="100%"></div></div>
-      </div>
-      <div class="lang-item">
-        <div class="lang-header">
-          <span class="lang-name">Basque (Euskera)</span>
-          <span class="lang-level">C1 — Advanced</span>
-        </div>
-        <div class="lang-bar-bg"><div class="lang-bar-fill" data-width="85%"></div></div>
-      </div>
-      <div class="lang-item">
-        <div class="lang-header">
-          <span class="lang-name">German</span>
-          <span class="lang-level">C1 — Advanced</span>
-        </div>
-        <div class="lang-bar-bg"><div class="lang-bar-fill" data-width="85%"></div></div>
-      </div>
-      <div class="lang-item">
-        <div class="lang-header">
-          <span class="lang-name">Spanish</span>
-          <span class="lang-level">Native</span>
-        </div>
-        <div class="lang-bar-bg"><div class="lang-bar-fill" data-width="100%"></div></div>
-      </div>
+      <div class="lang-item"><div class="lang-header"><span class="lang-name">English</span><span class="lang-level">C2 — Mastery</span></div><div class="lang-bar-bg"><div class="lang-bar-fill" data-width="100%"></div></div></div>
+      <div class="lang-item"><div class="lang-header"><span class="lang-name">Basque (Euskera)</span><span class="lang-level">C1 — Advanced</span></div><div class="lang-bar-bg"><div class="lang-bar-fill" data-width="85%"></div></div></div>
+      <div class="lang-item"><div class="lang-header"><span class="lang-name">German</span><span class="lang-level">C1 — Advanced</span></div><div class="lang-bar-bg"><div class="lang-bar-fill" data-width="85%"></div></div></div>
+      <div class="lang-item"><div class="lang-header"><span class="lang-name">Spanish</span><span class="lang-level">Native</span></div><div class="lang-bar-bg"><div class="lang-bar-fill" data-width="100%"></div></div></div>
     </div>
   </div>
 
   <div class="reveal reveal-delay-3">
-    <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ice2);margin:2rem 0 1rem;">What he creates</h3>
+    <h3 style="font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--ice2);margin:2rem 0 .8rem;text-shadow:0 0 10px rgba(112,196,240,0.3)">What he creates</h3>
     <div class="creations-grid">
-      <div class="creation-card">
-        <span class="creation-icon">📖</span>
-        <div class="creation-title">Books & Poetry</div>
-        <div class="creation-desc">Written multiple books and poems. Language as both a technical and emotional tool.</div>
-      </div>
-      <div class="creation-card">
-        <span class="creation-icon">💻</span>
-        <div class="creation-title">Apps & Games</div>
-        <div class="creation-desc">Programmed full applications and video games from scratch.</div>
-      </div>
-      <div class="creation-card">
-        <span class="creation-icon">🎲</span>
-        <div class="creation-title">3D Design</div>
-        <div class="creation-desc">Created 3D models with genuine spatial and aesthetic sensibility.</div>
-      </div>
-      <div class="creation-card">
-        <span class="creation-icon">🎬</span>
-        <div class="creation-title">Video Editing</div>
-        <div class="creation-desc">Edited videos with real editorial judgement and craft.</div>
-      </div>
-      <div class="creation-card">
-        <span class="creation-icon">📐</span>
-        <div class="creation-title">GeoGebra Projects</div>
-        <div class="creation-desc">Interactive mathematical constructions and visual proofs.</div>
-      </div>
-      <div class="creation-card">
-        <span class="creation-icon">🏆</span>
-        <div class="creation-title">Physics Olympiad</div>
-        <div class="creation-desc">1st place in the Basque Country Physics Olympiad.</div>
-      </div>
+      <div class="creation-card"><span class="creation-icon">📖</span><div class="creation-title">Books & Poetry</div><div class="creation-desc">Multiple books and poems. Language as both a technical and emotional tool.</div></div>
+      <div class="creation-card"><span class="creation-icon">💻</span><div class="creation-title">Apps & Games</div><div class="creation-desc">Programmed full applications and video games from scratch.</div></div>
+      <div class="creation-card"><span class="creation-icon">🎲</span><div class="creation-title">3D Design</div><div class="creation-desc">3D models with genuine spatial and aesthetic sensibility.</div></div>
+      <div class="creation-card"><span class="creation-icon">🎬</span><div class="creation-title">Video Editing</div><div class="creation-desc">Edited videos with real editorial judgement and craft.</div></div>
+      <div class="creation-card"><span class="creation-icon">📐</span><div class="creation-title">GeoGebra</div><div class="creation-desc">Interactive mathematical constructions and visual proofs.</div></div>
+      <div class="creation-card"><span class="creation-icon">🏆</span><div class="creation-title">Physics Olympiad</div><div class="creation-desc">1st place — Basque Country Physics Olympiad.</div></div>
     </div>
   </div>
 
   <div class="reveal reveal-delay-4">
-    <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ice2);margin:2rem 0 1rem;">Games he plays</h3>
+    <h3 style="font-family:var(--serif);font-size:1.1rem;font-weight:400;color:var(--ice2);margin:2rem 0 .8rem">Games</h3>
     <div class="games-grid">
-      <div class="game-card">
-        <span class="game-icon">🎯</span>
-        <div class="game-name">Valorant</div>
-        <div class="game-fav">★ Favourite</div>
-      </div>
-      <div class="game-card">
-        <span class="game-icon">🦋</span>
-        <div class="game-name">Hollow Knight</div>
-        <div class="game-fav">&nbsp;</div>
-      </div>
-      <div class="game-card">
-        <span class="game-icon">⛏️</span>
-        <div class="game-name">Minecraft</div>
-        <div class="game-fav">&nbsp;</div>
-      </div>
-      <div class="game-card">
-        <span class="game-icon">👑</span>
-        <div class="game-name">Clash Royale</div>
-        <div class="game-fav">&nbsp;</div>
-      </div>
-      <div class="game-card">
-        <span class="game-icon">🌅</span>
-        <div class="game-name">Sky</div>
-        <div class="game-fav">&nbsp;</div>
-      </div>
+      <div class="game-card"><span class="game-icon">🎯</span><div class="game-name">Valorant</div><div class="game-fav">★ Favourite</div></div>
+      <div class="game-card"><span class="game-icon">🦋</span><div class="game-name">Hollow Knight</div><div class="game-fav">&nbsp;</div></div>
+      <div class="game-card"><span class="game-icon">⛏️</span><div class="game-name">Minecraft</div><div class="game-fav">&nbsp;</div></div>
+      <div class="game-card"><span class="game-icon">👑</span><div class="game-name">Clash Royale</div><div class="game-fav">&nbsp;</div></div>
+      <div class="game-card"><span class="game-icon">🌅</span><div class="game-name">Sky</div><div class="game-fav">&nbsp;</div></div>
     </div>
   </div>
 
-  <div class="reveal reveal-delay-3">
-    <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ice2);margin:2rem 0 0.5rem;">What he reads</h3>
-    <blockquote>He reads Robert Jordan's <em>The Wheel of Time</em> in English — one of the longest fantasy sagas ever written. He hasn't finished it yet, and he is in no hurry. The best books deserve to be savoured.</blockquote>
-  </div>
+  <blockquote class="reveal reveal-delay-3">He reads Robert Jordan's <em>The Wheel of Time</em> in English — one of the longest fantasy sagas ever written. He is in no hurry. The best books deserve to be savoured.</blockquote>
 
   <div class="chips reveal reveal-delay-4">
-    <div class="chip accent">Mathematics</div>
-    <div class="chip accent">Physics</div>
-    <div class="chip accent">Biology</div>
-    <div class="chip accent">Philosophy</div>
-    <div class="chip">Artificial Intelligence</div>
-    <div class="chip">Programming</div>
-    <div class="chip">Nature & Animals</div>
-    <div class="chip">Literature</div>
+    <div class="chip accent">Mathematics</div><div class="chip accent">Physics</div>
+    <div class="chip accent">Biology</div><div class="chip accent">Philosophy</div>
+    <div class="chip">AI & Programming</div><div class="chip">Nature & Animals</div>
+    <div class="chip">Literature</div><div class="chip">3D Design</div>
   </div>
 </section>
 
-<!-- III. INNER WORLD -->
+<!-- SECTION III -->
 <section id="inner">
-  <div class="reveal">
-    <div class="section-label">Section III</div>
-    <h2 class="section-title">The <em>Inner World</em></h2>
-  </div>
+  <div class="reveal"><div class="section-label">Section III</div>
+  <h2 class="section-title">The <em>Inner World</em></h2></div>
 
   <div class="reveal reveal-delay-1">
     <p>Ekain feels emotions with unusual intensity — joy, sadness, emptiness, compassion — everything arrives amplified. Almost none of it shows on the surface. Not because he suppresses it, but because he has learned to inhabit it in silence, making his inner world a private space opened only to those who have truly earned it.</p>
   </div>
 
   <div class="traits-grid reveal reveal-delay-2">
-    <div class="trait-card">
-      <h3>Deep Empathy</h3>
-      <p>He senses the emotional state of others before they speak. Not performative — quiet, genuine, and often invisible to those around him.</p>
-    </div>
-    <div class="trait-card">
-      <h3>His Own Trick</h3>
-      <p>An internal compass that distinguishes right from convenient, true from comfortable. He does not need external validation to make moral decisions.</p>
-    </div>
-    <div class="trait-card">
-      <h3>Selective Trust</h3>
-      <p>A wide social circle, but only a handful of people truly know him. Trust is something earned slowly, completely, and once given — it is absolute.</p>
-    </div>
-    <div class="trait-card">
-      <h3>Online Openness</h3>
-      <p>In digital spaces — Valorant, social media — he connects with strangers more naturally than face to face. Distance gives him permission to be himself.</p>
-    </div>
+    <div class="trait-card"><h3>Deep Empathy</h3><p>He senses the emotional state of others before they speak. Quiet, genuine, and often invisible to those around him.</p></div>
+    <div class="trait-card"><h3>His Own Trick</h3><p>An internal compass that distinguishes right from convenient, true from comfortable. No external validation needed.</p></div>
+    <div class="trait-card"><h3>Selective Trust</h3><p>A wide social circle, but only a handful truly know him. Trust is earned slowly and completely — once given, it is absolute.</p></div>
+    <div class="trait-card"><h3>Online Openness</h3><p>In digital spaces he connects more naturally than face to face. Distance gives him permission to be himself.</p></div>
   </div>
 
   <blockquote class="reveal reveal-delay-2">"People, the way I see them, are not very trustworthy. But I still want to help them."</blockquote>
 
   <div class="ice-card reveal reveal-delay-3">
+    <div class="ice-card-bg-flake">❄</div>
     <div class="ice-card-title">The Force of Ice</div>
     <p>Ekain is going through a genuine existential crisis — a real and persistent emptiness, a deep question about what can give his life meaning. He tried to believe in God without success, though he knows he needs to believe in something.</p>
-    <p>And he has found it, in his own way. That something is ice. Snow. Cold. The snowflake. Not literally, but as a deeply personal metaphor — an intimate symbol shared only with those he trusts most. A silent guide, a constant presence that gives him strength when everything else fails. It has no name from any religion. It is his. And that is what makes it powerful.</p>
+    <p>And he found it, in his own way. That something is <strong style="color:var(--ice2);font-weight:400">ice. Snow. Cold. The snowflake.</strong> Not literally, but as a deeply personal metaphor — an intimate symbol shared only with those he trusts most. A silent guide, a constant presence that gives him strength when everything else fails. It has no name from any religion. It is his. And that is what makes it powerful.</p>
   </div>
 
   <div class="reveal reveal-delay-4">
-    <p>He also has a clear purpose towards others: he wants to help people, make them better, inspire them to help others in turn. To make the world a better place — at least for the few people he truly cares about.</p>
+    <p>He also has a clear purpose: he wants to help people, make them better, inspire them to help others in turn. To make the world a better place — at least for the few people he truly cares about.</p>
   </div>
 </section>
 
-<!-- IV. DAILY LIFE -->
+<!-- SECTION IV -->
 <section id="life">
-  <div class="reveal">
-    <div class="section-label">Section IV</div>
-    <h2 class="section-title"><em>Daily</em> Life</h2>
-  </div>
+  <div class="reveal"><div class="section-label">Section IV</div>
+  <h2 class="section-title"><em>Daily</em> Life</h2></div>
 
-  <!-- SLEEP -->
   <div class="reveal reveal-delay-1">
-    <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ice2);margin:0 0 1rem;">Sleep & Routine</h3>
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--ice2);margin-bottom:.8rem">Sleep & Routine</h3>
     <div class="sleep-row">
-      <div class="sleep-card">
-        <div class="sleep-hours">8h</div>
-        <div class="sleep-label">School days</div>
-      </div>
-      <div class="sleep-card">
-        <div class="sleep-hours">11h</div>
-        <div class="sleep-label">Holidays</div>
-      </div>
-      <div class="sleep-card">
-        <div class="sleep-hours">1×</div>
-        <div class="sleep-label">All-nighter ever</div>
-      </div>
+      <div class="sleep-card"><div class="sleep-hours">8h</div><div class="sleep-label">School days</div></div>
+      <div class="sleep-card"><div class="sleep-hours">11h</div><div class="sleep-label">Holidays</div></div>
+      <div class="sleep-card"><div class="sleep-hours">1×</div><div class="sleep-label">All-nighter ever</div></div>
     </div>
-    <p>He manages his rest with the same discipline he applies to everything else. He goes to bed early when he has to get up early, and allows himself to stay up later on free days — but always within reason.</p>
   </div>
 
-  <!-- PETS -->
   <div class="reveal reveal-delay-2">
-    <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ice2);margin:2rem 0 1rem;">His Animals</h3>
-    <p>He has had pets his whole life — a deep sensitivity to animals and nature. Currently he lives with:</p>
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--ice2);margin:2rem 0 .8rem">His Animals</h3>
     <div class="pets-row">
-      <div class="pet-card">
-        <span class="pet-emoji">🐱</span>
-        <div>
-          <div class="pet-name">Kaiku</div>
-          <div class="pet-type">Cat</div>
-        </div>
-      </div>
-      <div class="pet-card">
-        <span class="pet-emoji">🐭</span>
-        <div>
-          <div class="pet-name">Alfa</div>
-          <div class="pet-type">Gerbil</div>
-        </div>
-      </div>
-      <div class="pet-card">
-        <span class="pet-emoji">🐭</span>
-        <div>
-          <div class="pet-name">Beta</div>
-          <div class="pet-type">Gerbil</div>
-        </div>
-      </div>
+      <div class="pet-card"><span class="pet-emoji">🐱</span><div><div class="pet-name">Kaiku</div><div class="pet-type">Cat</div></div></div>
+      <div class="pet-card"><span class="pet-emoji">🐭</span><div><div class="pet-name">Alfa</div><div class="pet-type">Gerbil</div></div></div>
+      <div class="pet-card"><span class="pet-emoji">🐭</span><div><div class="pet-name">Beta</div><div class="pet-type">Gerbil</div></div></div>
     </div>
   </div>
 
-  <!-- SIDRERIA -->
   <div class="reveal reveal-delay-3">
-    <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ice2);margin:2rem 0 1rem;">Food — The Sidreria Above All</h3>
-    <p>He does not drink alcohol, does not smoke, and drinks only water. When it comes to the perfect meal, the traditional Basque cider house — the <em style="color:var(--ice2)">sidrería</em> — is unrivalled. The ritual is specific and sacred:</p>
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--ice2);margin:2rem 0 .8rem">The Sidrería — The Perfect Meal</h3>
+    <p>He does not drink alcohol, does not smoke, drinks only water. The traditional Basque cider house is the pinnacle of the perfect meal:</p>
     <div class="sidreria-courses">
-      <div class="course-item"><span class="course-num">1</span><span class="course-name">Chorizo — the classic sidrería starter</span></div>
-      <div class="course-item"><span class="course-num">2</span><span class="course-name">Tortilla de bacalao — salt cod omelette</span></div>
-      <div class="course-item"><span class="course-num">3</span><span class="course-name">Bacalao — cod dish</span></div>
-      <div class="course-item"><span class="course-num">4</span><span class="course-name">Chuleta — thick Basque beef steak, grilled over coals</span></div>
-      <div class="course-item"><span class="course-num">5</span><span class="course-name">Queso y nueces — cheese and walnuts</span></div>
+      <div class="course-item"><span class="course-num">I</span><span class="course-name">Chorizo — the classic sidrería starter</span></div>
+      <div class="course-item"><span class="course-num">II</span><span class="course-name">Tortilla de bacalao — salt cod omelette</span></div>
+      <div class="course-item"><span class="course-num">III</span><span class="course-name">Bacalao — cod dish</span></div>
+      <div class="course-item"><span class="course-num">IV</span><span class="course-name">Chuleta — thick Basque beef steak, grilled over coals</span></div>
+      <div class="course-item"><span class="course-num">V</span><span class="course-name">Queso y nueces — cheese and walnuts</span></div>
     </div>
-    <p style="font-size:0.82rem;color:var(--muted);">Always with bread. Always with water. Simple, honest, and deeply rooted in Basque tradition.</p>
+    <p style="font-size:.8rem;color:var(--muted)">Always with bread. Always with water. Simple, honest, deeply Basque.</p>
   </div>
 
-  <!-- WEEKLY MENU -->
   <div class="reveal reveal-delay-4">
-    <h3 style="font-family:var(--serif);font-size:1.15rem;font-weight:400;color:var(--ice2);margin:2rem 0 1rem;">Weekly Menu at Home</h3>
-    <p>Structured, deliberate, and deeply traditional. Click a day to see the meal:</p>
+    <h3 style="font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--ice2);margin:2rem 0 .8rem">Weekly Menu — Click a Day</h3>
     <div class="menu-container">
       <div class="menu-days">
-        <button class="menu-day-btn active" data-day="Monday" data-meal="Lentils with battered hake">
-          <span class="day-abbr">Mon</span><span class="day-num">1</span>
-        </button>
-        <button class="menu-day-btn" data-day="Tuesday" data-meal="Green beans with meatballs">
-          <span class="day-abbr">Tue</span><span class="day-num">2</span>
-        </button>
-        <button class="menu-day-btn" data-day="Wednesday" data-meal="Pasta with rooster fish">
-          <span class="day-abbr">Wed</span><span class="day-num">3</span>
-        </button>
-        <button class="menu-day-btn" data-day="Thursday" data-meal="Mashed potato with breaded steak">
-          <span class="day-abbr">Thu</span><span class="day-num">4</span>
-        </button>
-        <button class="menu-day-btn" data-day="Friday" data-meal="Bean stew with sole">
-          <span class="day-abbr">Fri</span><span class="day-num">5</span>
-        </button>
-        <button class="menu-day-btn" data-day="Saturday" data-meal="Chicken paella">
-          <span class="day-abbr">Sat</span><span class="day-num">6</span>
-        </button>
-        <button class="menu-day-btn" data-day="Sunday" data-meal="Soup with hake in green sauce">
-          <span class="day-abbr">Sun</span><span class="day-num">7</span>
-        </button>
+        <button class="menu-day-btn active" data-day="Monday" data-meal="Lentils with battered hake"><span class="day-abbr">Mon</span><span class="day-num">1</span></button>
+        <button class="menu-day-btn" data-day="Tuesday" data-meal="Green beans with meatballs"><span class="day-abbr">Tue</span><span class="day-num">2</span></button>
+        <button class="menu-day-btn" data-day="Wednesday" data-meal="Pasta with rooster fish"><span class="day-abbr">Wed</span><span class="day-num">3</span></button>
+        <button class="menu-day-btn" data-day="Thursday" data-meal="Mashed potato with breaded steak"><span class="day-abbr">Thu</span><span class="day-num">4</span></button>
+        <button class="menu-day-btn" data-day="Friday" data-meal="Bean stew with sole"><span class="day-abbr">Fri</span><span class="day-num">5</span></button>
+        <button class="menu-day-btn" data-day="Saturday" data-meal="Chicken paella"><span class="day-abbr">Sat</span><span class="day-num">6</span></button>
+        <button class="menu-day-btn" data-day="Sunday" data-meal="Soup with hake in green sauce"><span class="day-abbr">Sun</span><span class="day-num">7</span></button>
       </div>
       <div class="menu-detail" id="menuDetail">
         <div class="menu-detail-day">Monday</div>
@@ -899,117 +728,153 @@
   </div>
 </section>
 
-<!-- V. FINAL PORTRAIT -->
+<!-- SECTION V -->
 <section id="portrait">
-  <div class="reveal">
-    <div class="section-label">Section V</div>
-    <h2 class="section-title">A <em>Final</em> Portrait</h2>
-  </div>
-
+  <div class="reveal"><div class="section-label">Section V</div>
+  <h2 class="section-title">A <em>Final</em> Portrait</h2></div>
   <div class="reveal reveal-delay-1">
     <p>Ekain is a person who feels too much for a world unaccustomed to that level of depth. A brilliant mind that does not settle for learning — it needs to create, build, write, programme, design. A heart that wants to help others and make the world a better place, even when it finds it hard to trust them.</p>
     <p>He carries a storm within and presents it as a clear sky. He has a universe of his own, encoded in metaphors of snow and ice, that accompanies him when no one else can. He is looking for that one person he will one day choose — and who will choose him back.</p>
     <p>He is seventeen years old. He has already written books, won a regional physics olympiad, programmed video games, earned three language certifications, designed in 3D, edited videos, and built his own way of seeing the world from the inside out.</p>
   </div>
-
   <blockquote class="reveal reveal-delay-2">"The most interesting thing about Ekain is not what he has already done. It is what he is about to begin."</blockquote>
-
-  <blockquote class="reveal reveal-delay-3" style="border-left-color: rgba(74,158,199,0.4); margin-top:0;">"A snowflake is unique, cold to the touch, and yet capable of transforming every landscape it settles on."</blockquote>
+  <div class="portrait-glow reveal reveal-delay-3">
+    <svg width="60" height="60" viewBox="0 0 100 100" style="filter:drop-shadow(0 0 20px rgba(53,165,224,0.8)) drop-shadow(0 0 40px rgba(112,196,240,0.4));animation:floatSpin 20s linear infinite;display:inline-block;margin-bottom:1.5rem">
+      <g style="stroke:#70c4f0;stroke-width:2;fill:none;stroke-linecap:round" transform="translate(50,50)">
+        <line x1="0" y1="-42" x2="0" y2="42"/>
+        <line x1="-36.4" y1="-21" x2="36.4" y2="21"/>
+        <line x1="36.4" y1="-21" x2="-36.4" y2="21"/>
+        <line x1="-10" y1="-20" x2="0" y2="-42"/><line x1="10" y1="-20" x2="0" y2="-42"/>
+        <line x1="-10" y1="20" x2="0" y2="42"/><line x1="10" y1="20" x2="0" y2="42"/>
+        <line x1="-42" y1="-5" x2="-36.4" y2="21"/><line x1="-20" y1="5" x2="-36.4" y2="21"/>
+        <line x1="42" y1="-5" x2="36.4" y2="21"/><line x1="20" y1="5" x2="36.4" y2="21"/>
+        <line x1="-22" y1="-30" x2="-36.4" y2="-21"/><line x1="-16" y1="-14" x2="-36.4" y2="-21"/>
+        <line x1="22" y1="-30" x2="36.4" y2="-21"/><line x1="16" y1="-14" x2="36.4" y2="-21"/>
+        <circle cx="0" cy="0" r="5" stroke-width="2"/>
+      </g>
+    </svg>
+    <blockquote style="border:none;padding:0;font-size:clamp(1.1rem,1.5vw,1.5rem);text-align:center;color:var(--ice2);text-shadow:0 0 20px rgba(112,196,240,0.4)">"A snowflake is unique, cold to the touch, and yet capable of transforming every landscape it settles on."</blockquote>
+  </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <span class="footer-snow">❄</span>
-  <div>Donostia-San Sebastián &nbsp;·&nbsp; May 2026</div>
-  <div style="margin-top:0.5rem;color:var(--dim);font-size:0.72rem;">Personal & Confidential</div>
+  <span class="footer-flake">❄</span>
+  <div style="color:var(--muted)">Donostia-San Sebastián &nbsp;·&nbsp; May 2026</div>
+  <div style="margin-top:.5rem;font-size:.68rem">Personal &amp; Confidential</div>
 </footer>
 
 <script>
-// SNOWFLAKE CANVAS
-const canvas = document.getElementById('snowCanvas');
-const ctx = canvas.getContext('2d');
-let flakes = [];
+// CURSOR
+const cur = document.getElementById('cursor');
+let mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+document.querySelectorAll('a,button,.info-card,.creation-card,.game-card,.trait-card,.pet-card,.course-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+});
 
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
+// CANVAS — snowflakes + void particles
+const canvas=document.getElementById('bg');
+const ctx=canvas.getContext('2d');
+let W,H,flakes=[],sparks=[];
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
 
-function randomFlake() {
-  return {
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    r: Math.random() * 1.8 + 0.4,
-    speed: Math.random() * 0.4 + 0.1,
-    drift: (Math.random() - 0.5) * 0.2,
-    opacity: Math.random() * 0.5 + 0.1
-  };
-}
+function mkFlake(){return{x:Math.random()*W,y:Math.random()*H,r:Math.random()*1.6+.3,vy:Math.random()*.5+.08,vx:(Math.random()-.5)*.15,o:Math.random()*.55+.05,type:Math.random()<.05?'crystal':'dot'}}
+function mkSpark(){return{x:Math.random()*W,y:Math.random()*H,r:Math.random()*.8+.1,o:Math.random()*.2+.02,pulse:Math.random()*Math.PI*2,speed:Math.random()*.02+.005}}
+for(let i=0;i<140;i++)flakes.push(mkFlake());
+for(let i=0;i<80;i++)sparks.push(mkSpark());
 
-for (let i = 0; i < 110; i++) flakes.push(randomFlake());
+// Mouse-reactive aurora
+let mxN=.5,myN=.5;
+document.addEventListener('mousemove',e=>{mxN=e.clientX/W;myN=e.clientY/H});
 
-function drawFlakes() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  flakes.forEach(f => {
-    ctx.beginPath();
-    ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(140,201,232,${f.opacity})`;
-    ctx.fill();
-    f.y += f.speed;
-    f.x += f.drift;
-    if (f.y > canvas.height + 5) {
-      f.y = -5;
-      f.x = Math.random() * canvas.width;
-    }
-    if (f.x > canvas.width + 5) f.x = -5;
-    if (f.x < -5) f.x = canvas.width + 5;
+// Cursor sparkle trail
+let trail=[];
+document.addEventListener('mousemove',e=>{
+  if(Math.random()<.35)trail.push({x:e.clientX,y:e.clientY,r:Math.random()*3+1,o:.8,life:1});
+});
+
+let frame=0;
+function draw(){
+  frame++;
+  ctx.clearRect(0,0,W,H);
+
+  // Void gradient background
+  const vg=ctx.createRadialGradient(W*mxN,H*myN,0,W*.5,H*.5,Math.max(W,H)*.7);
+  vg.addColorStop(0,'rgba(5,28,50,0.25)');
+  vg.addColorStop(.4,'rgba(2,12,20,0.15)');
+  vg.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
+
+  // Static void sparks
+  sparks.forEach(s=>{
+    s.pulse+=s.speed;
+    const opacity=s.o*(0.5+0.5*Math.sin(s.pulse));
+    ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(53,165,224,${opacity})`;ctx.fill();
   });
-  requestAnimationFrame(drawFlakes);
+
+  // Snowflakes
+  flakes.forEach(f=>{
+    ctx.beginPath();ctx.arc(f.x,f.y,f.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(140,201,232,${f.o})`;ctx.fill();
+    if(f.type==='crystal'){
+      ctx.save();ctx.translate(f.x,f.y);ctx.rotate(frame*.005);
+      ctx.strokeStyle=`rgba(112,196,240,${f.o*.6})`;ctx.lineWidth=.5;
+      for(let a=0;a<6;a++){ctx.beginPath();ctx.moveTo(0,0);ctx.lineTo(0,-f.r*3);ctx.stroke();ctx.rotate(Math.PI/3)}
+      ctx.restore();
+    }
+    f.y+=f.vy;f.x+=f.vx+Math.sin(frame*.01+f.x)*.08;
+    if(f.y>H+5){f.y=-5;f.x=Math.random()*W}
+    if(f.x>W+5)f.x=-5;if(f.x<-5)f.x=W+5;
+  });
+
+  // Cursor trail
+  trail=trail.filter(t=>t.life>0);
+  trail.forEach(t=>{
+    ctx.beginPath();ctx.arc(t.x,t.y,t.r*t.life,0,Math.PI*2);
+    ctx.fillStyle=`rgba(112,196,240,${t.o*t.life})`;ctx.fill();
+    t.life-=.06;
+  });
+
+  requestAnimationFrame(draw);
 }
-drawFlakes();
+draw();
+
+// MOBILE NAV
+const burger=document.getElementById('burger');
+const mobileMenu=document.getElementById('mobileMenu');
+burger.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
+document.querySelectorAll('.mm-link').forEach(l=>l.addEventListener('click',()=>mobileMenu.classList.remove('open')));
 
 // SCROLL REVEAL
-const revealEls = document.querySelectorAll('.reveal');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) { e.target.classList.add('visible'); }
-  });
-}, { threshold: 0.12 });
-revealEls.forEach(el => observer.observe(el));
+const revealEls=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')})},{threshold:.1});
+revealEls.forEach(el=>obs.observe(el));
 
-// LANGUAGE BARS
-const langObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('.lang-bar-fill').forEach(bar => {
-        bar.style.width = bar.dataset.width;
-      });
-      langObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.3 });
-const langList = document.getElementById('langList');
-if (langList) langObserver.observe(langList);
+// LANG BARS
+const langObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){
+    e.target.querySelectorAll('.lang-bar-fill').forEach(b=>b.style.width=b.dataset.width);
+    langObs.unobserve(e.target);
+  }});
+},{threshold:.3});
+const ll=document.getElementById('langList');if(ll)langObs.observe(ll);
 
 // WEEKLY MENU
-const menuBtns = document.querySelectorAll('.menu-day-btn');
-const menuDetail = document.getElementById('menuDetail');
-
-menuBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    menuBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    menuDetail.querySelector('.menu-detail-day').textContent = btn.dataset.day;
-    menuDetail.querySelector('.menu-detail-meal').textContent = btn.dataset.meal;
-    menuDetail.style.opacity = '0';
-    menuDetail.style.transform = 'translateY(6px)';
-    setTimeout(() => {
-      menuDetail.style.transition = 'opacity 0.3s, transform 0.3s';
-      menuDetail.style.opacity = '1';
-      menuDetail.style.transform = 'none';
-    }, 10);
+const menuBtns=document.querySelectorAll('.menu-day-btn');
+const menuDetail=document.getElementById('menuDetail');
+menuBtns.forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    menuBtns.forEach(b=>b.classList.remove('active'));btn.classList.add('active');
+    menuDetail.style.opacity='0';menuDetail.style.transform='translateY(8px)';
+    setTimeout(()=>{
+      menuDetail.querySelector('.menu-detail-day').textContent=btn.dataset.day;
+      menuDetail.querySelector('.menu-detail-meal').textContent=btn.dataset.meal;
+      menuDetail.style.transition='opacity .35s,transform .35s';
+      menuDetail.style.opacity='1';menuDetail.style.transform='none';
+    },150);
   });
 });
 </script>
