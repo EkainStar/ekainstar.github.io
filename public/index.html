@@ -365,6 +365,8 @@ nav.hidden{
 .hero-quote{
   margin-top:3rem;
   max-width:520px;
+  margin-left:auto;
+  margin-right:auto;
   font-family:var(--serif);
   font-size:clamp(1rem,1.1rem+.3vw,1.3rem);
   font-style:italic;
@@ -373,6 +375,7 @@ nav.hidden{
   animation:fadeUp 1.2s 1.7s forwards;
   position:relative;
   padding:0 2rem;
+  text-align:center;
 }
 .hero-quote::before,.hero-quote::after{
   content:'"';position:absolute;
@@ -867,12 +870,13 @@ blockquote::before{
   position:relative;
 }
 
-/* CHIPS - MAGNETIC */
+/* CHIPS - MAGNETIC - BALANCED DISTRIBUTION */
 .chips{
   display:flex;
   flex-wrap:wrap;
   gap:.7rem;
   margin:2.5rem 0;
+  justify-content:center;
 }
 .chip{
   background:rgba(53,165,224,0.1);
@@ -887,6 +891,10 @@ blockquote::before{
     box-shadow .4s,
     transform .3s var(--ease);
   cursor:default;
+  flex-grow:1;
+  text-align:center;
+  min-width:fit-content;
+  max-width:calc(50% - .35rem);
 }
 .chip:hover{
   background:rgba(53,165,224,0.2);
@@ -1201,6 +1209,54 @@ footer{
 /* SNOWFLAKE SVG */
 .sf{stroke:var(--ice2);stroke-width:1.5;fill:none;stroke-linecap:round}
 
+/* CLICKABLE SNOWFLAKES */
+.clickable-snowflake{
+  position:fixed;
+  pointer-events:auto;
+  cursor:pointer;
+  z-index:100;
+  transition:transform .3s var(--ease),filter .3s;
+  filter:drop-shadow(0 0 15px var(--glow));
+}
+.clickable-snowflake:hover{
+  transform:scale(1.2);
+  filter:drop-shadow(0 0 25px var(--glow)) drop-shadow(0 0 40px rgba(53,165,224,0.5));
+}
+.clickable-snowflake svg{
+  width:100%;
+  height:100%;
+}
+
+/* FINAL SNOWFLAKE BUTTON */
+.final-snowflake-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:80px;
+  height:80px;
+  background:rgba(53,165,224,0.15);
+  border:2px solid rgba(53,165,224,0.4);
+  border-radius:50%;
+  cursor:pointer;
+  transition:all .4s var(--ease);
+  animation:floatSpin 20s linear infinite;
+  filter:drop-shadow(0 0 20px var(--glow));
+  margin-bottom:2rem;
+}
+.final-snowflake-btn:hover{
+  transform:scale(1.15);
+  background:rgba(53,165,224,0.25);
+  border-color:rgba(53,165,224,0.7);
+  filter:drop-shadow(0 0 30px var(--glow)) drop-shadow(0 0 50px rgba(53,165,224,0.5));
+}
+.final-snowflake-btn:active{
+  transform:scale(0.95);
+}
+.final-snowflake-btn svg{
+  width:50px;
+  height:50px;
+}
+
 /* SECTION TITLE STYLES */
 .section-h3{
   font-family:var(--serif);
@@ -1503,7 +1559,18 @@ footer{
 </section>
 
 <footer>
-  <span class="footer-flake">❄</span>
+  <button class="final-snowflake-btn" id="finalSnowflakeBtn" aria-label="Spawn snowflakes">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g class="sf" transform="translate(50,50)">
+        <line x1="0" y1="-42" x2="0" y2="42"/>
+        <line x1="-36.4" y1="-21" x2="36.4" y2="21"/>
+        <line x1="36.4" y1="-21" x2="-36.4" y2="21"/>
+        <line x1="-10" y1="-20" x2="0" y2="-42"/><line x1="10" y1="-20" x2="0" y2="-42"/>
+        <line x1="-10" y1="20" x2="0" y2="42"/><line x1="10" y1="20" x2="0" y2="42"/>
+        <circle cx="0" cy="0" r="4" stroke-width="1.5"/>
+      </g>
+    </svg>
+  </button>
   <div style="color:var(--muted)">Donostia-San Sebastián · May 2026</div>
   <div style="margin-top:.6rem;font-size:.7rem">Personal & Confidential</div>
 </footer>
@@ -1952,9 +2019,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // HERO SNOWFLAKE CLICK EFFECT
-document.querySelector('.hero-snowflake-svg').addEventListener('click', () => {
-  // Create burst effect
-  for (let i = 0; i < 12; i++) {
+function createSnowflakeBurst(x, y, count = 12) {
+  for (let i = 0; i < count; i++) {
     const particle = document.createElement('div');
     particle.style.cssText = `
       position: fixed;
@@ -1964,23 +2030,23 @@ document.querySelector('.hero-snowflake-svg').addEventListener('click', () => {
       border-radius: 50%;
       pointer-events: none;
       z-index: 1000;
-      left: 50%;
-      top: 50%;
+      left: ${x}px;
+      top: ${y}px;
       box-shadow: 0 0 10px var(--glow);
     `;
     document.body.appendChild(particle);
     
-    const angle = (i / 12) * Math.PI * 2;
+    const angle = (i / count) * Math.PI * 2;
     const velocity = 150 + Math.random() * 100;
     const vx = Math.cos(angle) * velocity;
     const vy = Math.sin(angle) * velocity;
     
-    let x = 0, y = 0, opacity = 1;
+    let px = 0, py = 0, opacity = 1;
     const animate = () => {
-      x += vx * 0.016;
-      y += vy * 0.016;
+      px += vx * 0.016;
+      py += vy * 0.016;
       opacity -= 0.02;
-      particle.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+      particle.style.transform = `translate(${px}px, ${py}px)`;
       particle.style.opacity = opacity;
       if (opacity > 0) {
         requestAnimationFrame(animate);
@@ -1990,7 +2056,112 @@ document.querySelector('.hero-snowflake-svg').addEventListener('click', () => {
     };
     requestAnimationFrame(animate);
   }
+}
+
+document.querySelector('.hero-snowflake-svg').addEventListener('click', (e) => {
+  const rect = e.target.getBoundingClientRect();
+  createSnowflakeBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
 });
+
+// CREATE CLICKABLE SNOWFLAKES THROUGHOUT THE PAGE
+function createClickableSnowflake(x, y, size) {
+  const snowflake = document.createElement('div');
+  snowflake.className = 'clickable-snowflake';
+  snowflake.style.left = x + 'px';
+  snowflake.style.top = y + 'px';
+  snowflake.style.width = size + 'px';
+  snowflake.style.height = size + 'px';
+  snowflake.innerHTML = `
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <g class="sf" transform="translate(50,50)">
+        <line x1="0" y1="-42" x2="0" y2="42"/>
+        <line x1="-36.4" y1="-21" x2="36.4" y2="21"/>
+        <line x1="36.4" y1="-21" x2="-36.4" y2="21"/>
+        <line x1="-10" y1="-20" x2="0" y2="-42"/><line x1="10" y1="-20" x2="0" y2="-42"/>
+        <line x1="-10" y1="20" x2="0" y2="42"/><line x1="10" y1="20" x2="0" y2="42"/>
+        <circle cx="0" cy="0" r="4" stroke-width="1.5"/>
+      </g>
+    </svg>
+  `;
+  
+  snowflake.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const rect = this.getBoundingClientRect();
+    createSnowflakeBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 8);
+    this.style.transform = 'scale(0)';
+    this.style.opacity = '0';
+    setTimeout(() => this.remove(), 300);
+  });
+  
+  // Touch support
+  snowflake.addEventListener('touchend', function(e) {
+    e.preventDefault();
+    const rect = this.getBoundingClientRect();
+    createSnowflakeBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 8);
+    this.style.transform = 'scale(0)';
+    this.style.opacity = '0';
+    setTimeout(() => this.remove(), 300);
+  }, { passive: false });
+  
+  document.body.appendChild(snowflake);
+  return snowflake;
+}
+
+// Spawn initial clickable snowflakes at random positions
+function spawnRandomSnowflakes(count) {
+  for (let i = 0; i < count; i++) {
+    const x = Math.random() * (window.innerWidth - 60) + 30;
+    const y = Math.random() * (document.body.scrollHeight - 200) + 100;
+    const size = 25 + Math.random() * 25;
+    createClickableSnowflake(x, y, size);
+  }
+}
+
+// Spawn some initial snowflakes after page loads
+setTimeout(() => {
+  spawnRandomSnowflakes(8);
+}, 2000);
+
+// FINAL SNOWFLAKE BUTTON - SPAWN MANY CLICKABLE SNOWFLAKES
+document.getElementById('finalSnowflakeBtn').addEventListener('click', function(e) {
+  const rect = this.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  
+  // Create burst effect from button
+  createSnowflakeBurst(centerX, centerY, 16);
+  
+  // Spawn multiple clickable snowflakes in visible area
+  const viewportHeight = window.innerHeight;
+  const scrollY = window.scrollY;
+  
+  for (let i = 0; i < 15; i++) {
+    setTimeout(() => {
+      const x = Math.random() * (window.innerWidth - 80) + 40;
+      const y = scrollY + Math.random() * viewportHeight;
+      const size = 30 + Math.random() * 30;
+      const sf = createClickableSnowflake(x, y, size);
+      
+      // Animate in from random direction
+      const startX = (Math.random() - 0.5) * 200;
+      const startY = (Math.random() - 0.5) * 200;
+      sf.style.opacity = '0';
+      sf.style.transform = `translate(${startX}px, ${startY}px) scale(0.5)`;
+      
+      requestAnimationFrame(() => {
+        sf.style.transition = 'transform 0.6s var(--ease), opacity 0.6s var(--ease)';
+        sf.style.opacity = '1';
+        sf.style.transform = 'translate(0, 0) scale(1)';
+      });
+    }, i * 80);
+  }
+});
+
+// Touch support for final button
+document.getElementById('finalSnowflakeBtn').addEventListener('touchend', function(e) {
+  e.preventDefault();
+  this.click();
+}, { passive: false });
 </script>
 </body>
 </html>
