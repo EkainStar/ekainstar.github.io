@@ -1,0 +1,368 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Ekain Ice Theme - Primary Colors */
+  --void: #000508;
+  --deep: #020c14;
+  --dark: #051220;
+  --navy: #081a2e;
+  --panel: rgba(5, 18, 32, 0.85);
+  
+  /* Ice color palette */
+  --ice-0: #e8f6ff;
+  --ice-1: #b8dfff;
+  --ice-2: #70c4f0;
+  --ice-3: #35a5e0;
+  --ice-4: #1a7ab5;
+  
+  /* Effects */
+  --glow: rgba(53, 165, 224, 0.6);
+  --glow2: rgba(112, 196, 240, 0.3);
+  --muted: #4a7a9b;
+  --dim: #1e3d55;
+  
+  /* Fonts */
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-title: 'Cinzel', serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  
+  /* Animation easing */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  
+  /* Semantic tokens for shadcn compatibility */
+  --background: var(--void);
+  --foreground: var(--ice-0);
+  --card: var(--deep);
+  --card-foreground: var(--ice-0);
+  --popover: var(--deep);
+  --popover-foreground: var(--ice-0);
+  --primary: var(--ice-3);
+  --primary-foreground: var(--void);
+  --secondary: var(--navy);
+  --secondary-foreground: var(--ice-1);
+  --muted: var(--navy);
+  --muted-foreground: #4a7a9b;
+  --accent: var(--ice-4);
+  --accent-foreground: var(--ice-0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.577 0.245 27.325);
+  --border: rgba(53, 165, 224, 0.2);
+  --input: var(--navy);
+  --ring: var(--ice-3);
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-serif: 'Cormorant Garamond', Georgia, serif;
+  --font-title: 'Cinzel', serif;
+  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  
+  /* Custom colors */
+  --color-void: var(--void);
+  --color-deep: var(--deep);
+  --color-dark: var(--dark);
+  --color-navy: var(--navy);
+  --color-panel: var(--panel);
+  --color-ice-0: var(--ice-0);
+  --color-ice-1: var(--ice-1);
+  --color-ice-2: var(--ice-2);
+  --color-ice-3: var(--ice-3);
+  --color-ice-4: var(--ice-4);
+  --color-glow: var(--glow);
+  --color-glow2: var(--glow2);
+  --color-muted: #4a7a9b;
+  --color-dim: var(--dim);
+  
+  /* Shadcn compatibility */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Base styles */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  background: var(--void);
+  color: var(--ice-0);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  line-height: 1.8;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+@media (max-width: 768px) {
+  body {
+    cursor: auto;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--void);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--dim);
+  border-radius: 3px;
+}
+
+/* SVG Snowflake styling */
+.sf {
+  stroke: var(--ice-2);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+}
+
+/* Section labels and titles */
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--ice-3);
+  margin-bottom: 0.8rem;
+  text-shadow: 0 0 12px var(--glow);
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300;
+  line-height: 1.05;
+  color: var(--ice-0);
+  margin-bottom: 3rem;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--ice-2);
+  text-shadow: 0 0 25px rgba(112, 196, 240, 0.6);
+}
+
+/* Paragraph styles */
+p {
+  margin-bottom: 1.5rem;
+  color: rgba(184, 223, 255, 0.85);
+  font-size: clamp(0.9rem, 0.95rem + 0.1vw, 1.05rem);
+  line-height: 1.9;
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* Keyframe animations */
+@keyframes loader-spin {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes void-shift {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes ring-pulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes float-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes line-expand {
+  from {
+    width: 0;
+  }
+  to {
+    width: 200px;
+  }
+}
+
+@keyframes scroll-pulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.2);
+  }
+}
+
+@keyframes bar-shine {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(53, 165, 224, 0.3), 0 0 40px rgba(53, 165, 224, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(53, 165, 224, 0.5), 0 0 60px rgba(53, 165, 224, 0.2);
+  }
+}
+
+/* Animation utility classes */
+.animate-loader-spin {
+  animation: loader-spin 3s ease-in-out infinite;
+}
+
+.animate-fade-up {
+  animation: fade-up 1.2s var(--ease) forwards;
+}
+
+.animate-void-shift {
+  animation: void-shift 15s ease-in-out infinite;
+}
+
+.animate-ring-pulse {
+  animation: ring-pulse 8s ease-in-out infinite;
+}
+
+.animate-float-spin {
+  animation: float-spin 25s linear infinite;
+}
+
+.animate-line-expand {
+  animation: line-expand 1.5s 2s forwards;
+}
+
+.animate-scroll-pulse {
+  animation: scroll-pulse 2.5s 3s infinite;
+}
+
+.animate-bar-shine {
+  animation: bar-shine 2s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+/* Radial gradient background for cards */
+.bg-radial-center {
+  background: radial-gradient(circle at center, rgba(53, 165, 224, 0.15), transparent);
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--ice-3);
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Selection styles */
+::selection {
+  background: rgba(53, 165, 224, 0.3);
+  color: var(--ice-0);
+}
+
+/* Glow divider */
+.glow-divider {
+  height: 1px;
+  margin: 3rem 0;
+  background: linear-gradient(to right, transparent, var(--ice-3), transparent);
+  box-shadow: 0 0 10px var(--glow);
+}
+
+/* Mobile-specific touch feedback */
+@media (max-width: 768px) {
+  .interactive:active {
+    transform: scale(0.98);
+    transition: transform 0.1s ease;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-void text-ice-0;
+  }
+}
