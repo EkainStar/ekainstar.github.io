@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Ekain — A Cinematic Portrait</title>
-<meta name="description" content="A personal portrait of Ekain, a seventeen-year-old from Donostia-San Sebastián with an extraordinary mind.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ekain — Personal Portrait</title>
+<meta name="description" content="A personal portrait of Ekain: interests, creative work, Basque roots and everyday details.">
 <meta name="theme-color" content="#000508">
+<meta name="color-scheme" content="dark">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
@@ -1209,54 +1210,6 @@ footer{
 /* SNOWFLAKE SVG */
 .sf{stroke:var(--ice2);stroke-width:1.5;fill:none;stroke-linecap:round}
 
-/* CLICKABLE SNOWFLAKES */
-.clickable-snowflake{
-  position:fixed;
-  pointer-events:auto;
-  cursor:pointer;
-  z-index:100;
-  transition:transform .3s var(--ease),filter .3s;
-  filter:drop-shadow(0 0 15px var(--glow));
-}
-.clickable-snowflake:hover{
-  transform:scale(1.2);
-  filter:drop-shadow(0 0 25px var(--glow)) drop-shadow(0 0 40px rgba(53,165,224,0.5));
-}
-.clickable-snowflake svg{
-  width:100%;
-  height:100%;
-}
-
-/* FINAL SNOWFLAKE BUTTON */
-.final-snowflake-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:80px;
-  height:80px;
-  background:rgba(53,165,224,0.15);
-  border:2px solid rgba(53,165,224,0.4);
-  border-radius:50%;
-  cursor:pointer;
-  transition:all .4s var(--ease);
-  animation:floatSpin 20s linear infinite;
-  filter:drop-shadow(0 0 20px var(--glow));
-  margin-bottom:2rem;
-}
-.final-snowflake-btn:hover{
-  transform:scale(1.15);
-  background:rgba(53,165,224,0.25);
-  border-color:rgba(53,165,224,0.7);
-  filter:drop-shadow(0 0 30px var(--glow)) drop-shadow(0 0 50px rgba(53,165,224,0.5));
-}
-.final-snowflake-btn:active{
-  transform:scale(0.95);
-}
-.final-snowflake-btn svg{
-  width:50px;
-  height:50px;
-}
-
 /* SECTION TITLE STYLES */
 .section-h3{
   font-family:var(--serif);
@@ -1266,6 +1219,173 @@ footer{
   margin:2.5rem 0 1rem;
   text-shadow:0 0 12px rgba(112,196,240,0.4);
 }
+
+/* Quiet editorial system */
+:root{
+  --void:#080d13;--deep:#0d151e;--dark:#111d28;--navy:#172532;
+  --panel:rgba(17,29,40,.78);--ice0:#f0f4f7;--ice1:#c9d6df;
+  --ice2:#9ebbd0;--ice3:#83abc5;--ice4:#527b98;
+  --glow:rgba(131,171,197,.22);--glow2:rgba(131,171,197,.12);
+  --muted:#93a8b7;--dim:#536b7b;
+}
+html{scroll-padding-top:5.5rem}
+body{cursor:auto;background:linear-gradient(180deg,#080d13 0%,#0b1219 45%,#080d13 100%)}
+#loader,#cursor,.cursor-trail{display:none!important}
+#bg-far,#bg-mid,#bg-near{opacity:.2}
+#fog-layer{display:none}
+nav{padding:1rem max(1.5rem,calc((100vw - 1120px)/2));background:rgba(8,13,19,.88);border-color:rgba(201,214,223,.1)}
+.nav-logo{color:var(--ice1);text-shadow:none}
+.nav-links{gap:clamp(1rem,2.6vw,2.5rem)}
+.nav-links a{color:var(--ice1)}
+.nav-links a:hover{color:var(--ice0);text-shadow:none}
+#hero{min-height:min(820px,100svh);height:auto;padding:9rem 1.5rem 7rem}
+.hero-content{max-width:780px}
+.hero-glow-ring,.hero-glow-ring2,.hero-glow-ring3{opacity:.28}
+.hero-snowflake-svg{filter:drop-shadow(0 0 16px var(--glow))!important}
+.hero-tag,.hero-sub{color:var(--ice1);text-shadow:none}
+.hero-name{text-shadow:0 0 30px rgba(131,171,197,.18)}
+.hero-quote{font-size:clamp(1.1rem,2vw,1.45rem);color:var(--ice1);text-shadow:none}
+section{max-width:1040px;padding:6rem 2rem}
+section+section::before{width:min(100%,960px);height:1px;top:0;background:linear-gradient(90deg,transparent,rgba(201,214,223,.15),transparent)}
+.section-label{letter-spacing:.22em;text-shadow:none;color:var(--ice2)}
+.section-title{margin-bottom:2rem;font-size:clamp(2.25rem,5vw,3.4rem)}
+.section-title em{color:var(--ice2);text-shadow:none}
+p{max-width:68ch;color:#c3ced7;font-size:1rem;line-height:1.8}
+.editorial-grid{gap:clamp(1.5rem,4vw,4rem);margin:2rem 0}
+blockquote{max-width:740px;border-color:var(--ice4);color:#d8e2e9;text-shadow:none}
+blockquote::before{background:var(--ice3);box-shadow:none}
+.info-card,.creation-card,.game-card,.trait-card,.pet-card,.sleep-card,.course-item,.ice-card,.menu-container{
+  background:rgba(17,29,40,.72);border-color:rgba(201,214,223,.13);box-shadow:none;backdrop-filter:none
+}
+.info-card{border-radius:8px;padding:1.15rem 1.35rem}
+.info-card::before,.info-card::after{display:none}
+.info-card:hover,.creation-card:hover,.game-card:hover,.trait-card:hover,.pet-card:hover,.sleep-card:hover,.course-item:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(0,0,0,.18);border-color:rgba(201,214,223,.28)}
+.info-card-label,.creation-desc,.game-fav,.pet-type,.sleep-label,.course-num{color:var(--muted)}
+.info-card-value,.creation-title,.game-name,.pet-name{color:var(--ice0)}
+.section-h3{color:var(--ice1);text-shadow:none;font-size:1.35rem}
+.lang-bar-bg{background:rgba(201,214,223,.13)}
+.lang-bar-fill{background:var(--ice3);box-shadow:none}
+.chip{border-color:rgba(201,214,223,.18);color:var(--ice1);background:rgba(17,29,40,.5)}
+.chip.accent{border-color:rgba(131,171,197,.4);color:var(--ice0);background:rgba(131,171,197,.1)}
+.ice-card{border-radius:12px}
+.ice-card-title{color:var(--ice1);text-shadow:none}
+.ice-card-bg-flake{opacity:.08}
+.portrait-glow{background:radial-gradient(ellipse at center,rgba(131,171,197,.07),transparent 68%)}
+footer{border-color:rgba(201,214,223,.12);color:var(--muted)}
+footer div{color:var(--muted)!important}
+@media(max-width:768px){section{padding:4.5rem 1.4rem}nav{padding:1rem 1.25rem}.hero-name{font-size:clamp(3rem,14vw,6rem)}}
+@media(max-width:480px){section{padding:4rem 1.2rem}.info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.info-card{padding:1rem}.info-card-value{font-size:.9rem}}
+
+/* Consistent alignment and balanced grids */
+:root{--content-width:960px;--grid-gap:1.25rem}
+section{width:min(100%,1040px);padding:6rem 2.5rem}
+section+section::before{width:calc(100% - 5rem)}
+.section-label,.section-title,.section-h3{text-align:center}
+.section-label{margin-inline:auto}
+.section-title{margin:0 auto 2.25rem}
+.section-h3{margin:2.75rem 0 1.25rem}
+section > .reveal,section > .editorial-grid,section > .info-grid,
+section > .traits-grid,section > .ice-card,section > blockquote,
+section > .chips,section > .portrait-glow{width:100%;margin-inline:auto}
+section > .reveal > p,section > .editorial-grid p{max-width:68ch;margin-inline:auto}
+.editorial-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem;margin:2.5rem auto}
+#inner .editorial-grid > div{grid-column:1/-1}
+.info-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--grid-gap);margin:2.5rem auto}
+.info-card{min-width:0;min-height:112px;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:1.1rem}
+.info-card-label{letter-spacing:.16em}
+.info-card-value{line-height:1.35;overflow-wrap:anywhere}
+.lang-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem 2rem;margin:2rem auto;max-width:var(--content-width)}
+.lang-item{min-width:0}
+.lang-header{align-items:baseline;gap:1rem}
+.lang-level{text-align:right}
+.creations-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--grid-gap);margin:2rem auto}
+.creation-card{min-width:0;min-height:210px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;padding:1.5rem}
+.creation-desc{margin-top:auto;padding-top:.5rem}
+.creation-note{max-width:60ch;margin:1.25rem auto 0;text-align:center;color:var(--ice1)}
+.games-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--grid-gap);margin:2rem auto}
+.game-card{min-width:0;min-height:142px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.1rem .6rem}
+.game-name{overflow-wrap:anywhere}
+.traits-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--grid-gap);margin:2rem auto}
+.trait-card{min-height:170px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:1.5rem}
+.trait-card h3{margin-bottom:.65rem}
+.trait-card p{margin:0 auto;max-width:34ch}
+.ice-card{max-width:var(--content-width);padding:2.5rem;margin:2.5rem auto;text-align:center}
+.ice-card p{margin-inline:auto}
+.chips{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem;margin:2rem auto}
+.chip{max-width:none;min-width:0;width:100%;display:flex;align-items:center;justify-content:center;min-height:44px;padding:.55rem .75rem;line-height:1.35}
+.sleep-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--grid-gap);margin:2rem auto}
+.sleep-card{min-width:0;min-height:132px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.pets-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--grid-gap);margin:2rem auto}
+.pet-card{min-width:0;min-height:96px;justify-content:center}
+.sidreria-courses{max-width:var(--content-width);margin:2rem auto}
+.course-item{min-height:64px;display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:1rem;padding:1rem 1.25rem}
+.course-num{text-align:center;width:auto}
+.menu-container{max-width:var(--content-width);margin:2rem auto;padding:1.25rem}
+.menu-days{gap:.65rem}
+.menu-day-btn{min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.menu-detail{text-align:center;min-height:116px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.menu-detail-meal{max-width:44ch}
+blockquote{margin:2.5rem auto;text-align:left}
+.portrait-glow{max-width:var(--content-width);margin:2.5rem auto 0;padding:2.5rem 1.5rem;text-align:center}
+.portrait-glow blockquote{max-width:680px;text-align:center}
+footer{padding:3.5rem 1.5rem}
+.reveal-delay-1,.reveal-delay-2,.reveal-delay-3,.reveal-delay-4,.reveal-delay-5{transition-delay:0s}
+@media(max-width:768px){
+  section{padding:4.75rem 1.75rem}
+  section+section::before{width:calc(100% - 3.5rem)}
+  .info-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .creations-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .games-grid{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .game-card{grid-column:span 2}
+  .game-card:nth-child(4){grid-column:2/span 2}
+  .game-card:nth-child(5){grid-column:4/span 2}
+  .traits-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pets-row{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .pet-card{flex-direction:column;text-align:center;gap:.5rem;padding:1rem .5rem}
+  .sleep-row{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:520px){
+  section{padding:4.25rem 1.25rem}
+  section+section::before{width:calc(100% - 2.5rem)}
+  .section-title{font-size:clamp(2rem,9vw,2.8rem)}
+  .editorial-grid{grid-template-columns:1fr;gap:1.25rem}
+  .lang-list{grid-template-columns:1fr;gap:1.1rem}
+  .creations-grid{gap:.75rem}
+  .creation-card{min-height:196px;padding:1.1rem .85rem}
+  .games-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:.75rem}
+  .game-card{grid-column:span 2;min-height:128px}
+  .game-card:nth-child(4){grid-column:auto}
+  .game-card:nth-child(5){grid-column:2/span 2}
+  .traits-grid{grid-template-columns:1fr;gap:.75rem}
+  .trait-card{min-height:138px}
+  .chips{grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem}
+  .sleep-row{grid-template-columns:1fr;gap:.75rem}
+  .sleep-card{min-height:104px}
+  .pets-row{grid-template-columns:1fr;gap:.75rem}
+  .pet-card{flex-direction:row;text-align:left;justify-content:flex-start;padding:1rem 1.25rem}
+  .menu-container{padding:.75rem}
+  .menu-days{gap:.3rem}
+  .menu-day-btn{min-height:64px;padding:.45rem .15rem}
+  .day-abbr{font-size:.53rem;letter-spacing:.06em}
+  .course-item{grid-template-columns:2rem minmax(0,1fr);gap:.65rem;padding:.9rem}
+  .ice-card{padding:1.75rem 1.2rem}
+}
+
+/* Keep every hero element on the same true center axis */
+#hero{position:relative;isolation:isolate;padding:8rem 1.5rem 7rem}
+.hero-content{width:min(100%,780px);margin-inline:auto;display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero-snowflake-svg{display:block;flex:none;margin-inline:auto}
+.hero-tag,.hero-sub,.hero-quote{width:100%;text-align:center;margin-inline:auto}
+.hero-tag{text-indent:.5em}
+.hero-sub{text-indent:.08em}
+.hero-name{width:100%;text-align:center;letter-spacing:.14em;text-indent:.07em;font-kerning:normal}
+.hero-snowflake-svg{cursor:default}
+.hero-name::after{left:50%;right:auto}
+.hero-quote{max-width:520px}
+.hero-glow-ring,.hero-glow-ring2,.hero-glow-ring3{top:50%;left:50%;translate:-50% -50%;transform-origin:center}
+.scroll-hint{left:0;right:0;bottom:2rem;width:100%;transform:none;align-items:center;text-align:center}
+.scroll-line{display:block;flex:none;margin-inline:auto;transform-origin:center top}
+@media(max-width:520px){#hero{padding:7rem 1.15rem 6.5rem}.hero-quote{padding-inline:1.5rem}.hero-quote::before{left:0}.hero-quote::after{right:0}.scroll-hint{bottom:1.5rem}}
 </style>
 </head>
 <body>
@@ -1312,11 +1432,11 @@ footer{
     EKAIN
   </a>
   <ul class="nav-links">
-    <li><a href="#identity">Identity</a></li>
-    <li><a href="#mind">Mind</a></li>
-    <li><a href="#inner">Inner World</a></li>
-    <li><a href="#life">Daily Life</a></li>
-    <li><a href="#portrait">Portrait</a></li>
+    <li><a href="#identity">About</a></li>
+    <li><a href="#mind">Interests</a></li>
+    <li><a href="#inner">A quieter side</a></li>
+    <li><a href="#life">Everyday</a></li>
+    <li><a href="#portrait">In brief</a></li>
   </ul>
   <button class="nav-burger" id="burger" aria-label="Toggle menu">
     <span></span><span></span><span></span>
@@ -1324,11 +1444,11 @@ footer{
 </nav>
 
 <ul class="mobile-menu" id="mobileMenu">
-  <li><a href="#identity" class="mm-link">Identity</a></li>
-  <li><a href="#mind" class="mm-link">Mind</a></li>
-  <li><a href="#inner" class="mm-link">Inner World</a></li>
-  <li><a href="#life" class="mm-link">Daily Life</a></li>
-  <li><a href="#portrait" class="mm-link">Portrait</a></li>
+  <li><a href="#identity" class="mm-link">About</a></li>
+  <li><a href="#mind" class="mm-link">Interests</a></li>
+  <li><a href="#inner" class="mm-link">A quieter side</a></li>
+  <li><a href="#life" class="mm-link">Everyday</a></li>
+  <li><a href="#portrait" class="mm-link">In brief</a></li>
 </ul>
 
 <!-- HERO -->
@@ -1352,7 +1472,7 @@ footer{
         <circle cx="0" cy="0" r="4" stroke-width="1.5"/>
       </g>
     </svg>
-    <div class="hero-tag">A Personal Portrait · Donostia-San Sebastián, 2026</div>
+    <div class="hero-tag">A personal portrait · Basque Country · 2026</div>
     <h1 class="hero-name">EKAIN</h1>
     <div class="hero-sub">Born December 29, 2008 · Basque Country · 17 years old</div>
     <div class="hero-quote">"I feel everything with far more intensity than I let on."</div>
@@ -1370,10 +1490,10 @@ footer{
 
   <div class="editorial-grid">
     <div class="reveal reveal-delay-1">
-      <p>Ekain is a seventeen-year-old from Donostia-San Sebastián who has just finished bachillerato with a grade average of <span class="highlight">9.9 out of 10</span>. A number that speaks, but one that barely scratches the surface of who he really is.</p>
+      <p>Ekain is from Donostia-San Sebastián and recently finished bachillerato with an average of <span class="highlight">9.9 out of 10</span>.</p>
     </div>
     <div class="reveal reveal-delay-2">
-      <p>He feels completely Basque and loves his culture deeply — without extremism. His identity is something he carries within, not something he imposes or fights for with violence.</p>
+      <p>He identifies strongly with Basque culture. It is an important part of how he sees himself.</p>
     </div>
   </div>
 
@@ -1384,7 +1504,7 @@ footer{
     <div class="info-card"><div class="info-card-label">Status</div><div class="info-card-value">Single</div></div>
     <div class="info-card"><div class="info-card-label">Personality</div><div class="info-card-value">Very introverted</div></div>
     <div class="info-card"><div class="info-card-label">Style</div><div class="info-card-value">Highly organised</div></div>
-    <div class="info-card"><div class="info-card-label">Next step</div><div class="info-card-value">IT & AI — Deusto</div></div>
+    <div class="info-card"><div class="info-card-label">Studies</div><div class="info-card-value">IT & AI — Deusto</div></div>
     <div class="info-card"><div class="info-card-label">Bachillerato</div><div class="info-card-value">9.9 / 10</div></div>
   </div>
 </section>
@@ -1392,10 +1512,10 @@ footer{
 <!-- SECTION II -->
 <section id="mind">
   <div class="reveal"><div class="section-label">Section II</div>
-  <h2 class="section-title">An <em>Extraordinary</em> Mind</h2></div>
+  <h2 class="section-title">Things that <em>interest him</em></h2></div>
 
   <div class="reveal reveal-delay-1">
-    <p>His curiosity crosses every border — mathematics, physics, biology, philosophy, programming. That same curiosity led him to <span class="highlight">finish first in the Physics Olympiad of the Basque Country</span>. Next year he will begin a double degree in IT and Artificial Intelligence at the University of Deusto.</p>
+    <p>Ekain is interested in mathematics, physics, biology, philosophy and programming. He placed first in the Basque Country Physics Olympiad and has started a double degree in IT and Artificial Intelligence at the University of Deusto.</p>
   </div>
 
   <div class="reveal reveal-delay-2">
@@ -1411,13 +1531,14 @@ footer{
   <div class="reveal reveal-delay-3">
     <h3 class="section-h3">What he creates</h3>
     <div class="creations-grid" id="creationsGrid">
-      <div class="creation-card"><span class="creation-icon">📖</span><div class="creation-title">Books & Poetry</div><div class="creation-desc">Multiple books and poems. Language as both a technical and emotional tool.</div></div>
-      <div class="creation-card"><span class="creation-icon">💻</span><div class="creation-title">Apps & Games</div><div class="creation-desc">Programmed full applications and video games from scratch.</div></div>
-      <div class="creation-card"><span class="creation-icon">🎲</span><div class="creation-title">3D Design</div><div class="creation-desc">3D models with genuine spatial and aesthetic sensibility.</div></div>
-      <div class="creation-card"><span class="creation-icon">🎬</span><div class="creation-title">Video Editing</div><div class="creation-desc">Edited videos with real editorial judgement and craft.</div></div>
-      <div class="creation-card"><span class="creation-icon">📐</span><div class="creation-title">GeoGebra</div><div class="creation-desc">Interactive mathematical constructions and visual proofs.</div></div>
+      <div class="creation-card"><span class="creation-icon">📖</span><div class="creation-title">Books & poetry</div><div class="creation-desc">Writing across prose and poetry.</div></div>
+      <div class="creation-card"><span class="creation-icon">💻</span><div class="creation-title">Apps & games</div><div class="creation-desc">Applications and video games he has programmed.</div></div>
+      <div class="creation-card"><span class="creation-icon">🎲</span><div class="creation-title">3D design</div><div class="creation-desc">Three-dimensional modelling.</div></div>
+      <div class="creation-card"><span class="creation-icon">🎬</span><div class="creation-title">Video editing</div><div class="creation-desc">Video projects he has edited.</div></div>
+      <div class="creation-card"><span class="creation-icon">📐</span><div class="creation-title">GeoGebra</div><div class="creation-desc">Mathematical constructions and visual proofs.</div></div>
       <div class="creation-card"><span class="creation-icon">🏆</span><div class="creation-title">Physics Olympiad</div><div class="creation-desc">1st place — Basque Country Physics Olympiad.</div></div>
     </div>
+    <p class="creation-note">He recently started playing piano and composes piano songs.</p>
   </div>
 
   <div class="reveal reveal-delay-4">
@@ -1431,32 +1552,32 @@ footer{
     </div>
   </div>
 
-  <blockquote class="reveal reveal-delay-3">He reads Robert Jordan's <em>The Wheel of Time</em> in English — one of the longest fantasy sagas ever written. He is in no hurry. The best books deserve to be savoured.</blockquote>
+  <blockquote class="reveal reveal-delay-3">He has been reading Robert Jordan's <em>The Wheel of Time</em> in English for nearly two years—and is not yet halfway through.</blockquote>
 
   <div class="chips reveal reveal-delay-4">
     <div class="chip accent">Mathematics</div><div class="chip accent">Physics</div>
     <div class="chip accent">Biology</div><div class="chip accent">Philosophy</div>
     <div class="chip">AI & Programming</div><div class="chip">Nature & Animals</div>
-    <div class="chip">Literature</div><div class="chip">3D Design</div>
+    <div class="chip">Literature</div><div class="chip">Psychology</div>
   </div>
 </section>
 
 <!-- SECTION III -->
 <section id="inner">
   <div class="reveal"><div class="section-label">Section III</div>
-  <h2 class="section-title">The <em>Inner World</em></h2></div>
+  <h2 class="section-title">A quieter <em>side</em></h2></div>
 
   <div class="editorial-grid">
     <div class="reveal reveal-delay-1">
-      <p>Ekain feels emotions with unusual intensity — joy, sadness, emptiness, compassion — everything arrives amplified. Almost none of it shows on the surface. Not because he suppresses it, but because he has learned to inhabit it in silence, making his inner world a private space opened only to those who have truly earned it.</p>
+      <p>This portrait describes someone who experiences emotions intensely and tends to keep them private. Empathy, trust and a wish to help others are recurring themes.</p>
     </div>
   </div>
 
   <div class="traits-grid reveal reveal-delay-2">
-    <div class="trait-card"><h3>Deep Empathy</h3><p>He senses the emotional state of others before they speak. Quiet, genuine, and often invisible to those around him.</p></div>
-    <div class="trait-card"><h3>His Own Trick</h3><p>An internal compass that distinguishes right from convenient, true from comfortable. No external validation needed.</p></div>
-    <div class="trait-card"><h3>Selective Trust</h3><p>A wide social circle, but only a handful truly know him. Trust is earned slowly and completely — once given, it is absolute.</p></div>
-    <div class="trait-card"><h3>Online Openness</h3><p>In digital spaces he connects more naturally than face to face. Distance gives him permission to be himself.</p></div>
+    <div class="trait-card"><h3>Empathy</h3><p>He wants to support people around him.</p></div>
+    <div class="trait-card"><h3>Personal values</h3><p>He tries to follow his own sense of what is right.</p></div>
+    <div class="trait-card"><h3>Trust</h3><p>He is introverted and careful about who he lets close.</p></div>
+    <div class="trait-card"><h3>Online</h3><p>He finds it easier to connect in digital spaces.</p></div>
   </div>
 
   <blockquote class="reveal reveal-delay-2">"People, the way I see them, are not very trustworthy. But I still want to help them."</blockquote>
@@ -1464,12 +1585,11 @@ footer{
   <div class="ice-card reveal reveal-delay-3">
     <div class="ice-card-bg-flake">❄</div>
     <div class="ice-card-title">The Force of Ice</div>
-    <p>Ekain is going through a genuine existential crisis — a real and persistent emptiness, a deep question about what can give his life meaning. He tried to believe in God without success, though he knows he needs to believe in something.</p>
-    <p>And he found it, in his own way. That something is <span class="highlight">ice. Snow. Cold. The snowflake.</span> Not literally, but as a deeply personal metaphor — an intimate symbol shared only with those he trusts most. A silent guide, a constant presence that gives him strength when everything else fails. It has no name from any religion. It is his. And that is what makes it powerful.</p>
+    <p>Snow and ice are personal symbols in Ekain's inner world: a metaphor he returns to when thinking about meaning and strength.</p>
   </div>
 
   <div class="reveal reveal-delay-4">
-    <p>He also has a clear purpose: he wants to help people, make them better, inspire them to help others in turn. To make the world a better place — at least for the few people he truly cares about.</p>
+    <p>He wants to help people and encourage them to help others.</p>
   </div>
 </section>
 
@@ -1483,7 +1603,7 @@ footer{
     <div class="sleep-row">
       <div class="sleep-card"><div class="sleep-hours">8h</div><div class="sleep-label">School days</div></div>
       <div class="sleep-card"><div class="sleep-hours">11h</div><div class="sleep-label">Holidays</div></div>
-      <div class="sleep-card"><div class="sleep-hours">1×</div><div class="sleep-label">All-nighter ever</div></div>
+      <div class="sleep-card"><div class="sleep-hours">2×</div><div class="sleep-label">All-nighters ever</div></div>
     </div>
   </div>
 
@@ -1491,8 +1611,8 @@ footer{
     <h3 class="section-h3">His Animals</h3>
     <div class="pets-row">
       <div class="pet-card"><span class="pet-emoji">🐱</span><div><div class="pet-name">Kaiku</div><div class="pet-type">Cat</div></div></div>
-      <div class="pet-card"><span class="pet-emoji">🐭</span><div><div class="pet-name">Alfa</div><div class="pet-type">Gerbil</div></div></div>
-      <div class="pet-card"><span class="pet-emoji">🐭</span><div><div class="pet-name">Beta</div><div class="pet-type">Gerbil</div></div></div>
+      <div class="pet-card"><span class="pet-emoji">🐭</span><div><div class="pet-name">α</div><div class="pet-type">Gerbil</div></div></div>
+      <div class="pet-card"><span class="pet-emoji">🐭</span><div><div class="pet-name">β</div><div class="pet-type">Gerbil</div></div></div>
     </div>
   </div>
 
@@ -1532,13 +1652,13 @@ footer{
 <!-- SECTION V -->
 <section id="portrait">
   <div class="reveal"><div class="section-label">Section V</div>
-  <h2 class="section-title">A <em>Final</em> Portrait</h2></div>
+  <h2 class="section-title">In <em>brief</em></h2></div>
   <div class="reveal reveal-delay-1">
-    <p>Ekain is a person who feels too much for a world unaccustomed to that level of depth. A brilliant mind that does not settle for learning — it needs to create, build, write, programme, design. A heart that wants to help others and make the world a better place, even when it finds it hard to trust them.</p>
-    <p>He carries a storm within and presents it as a clear sky. He has a universe of his own, encoded in metaphors of snow and ice, that accompanies him when no one else can. He is looking for that one person he will one day choose — and who will choose him back.</p>
-    <p>He is seventeen years old. He has already written books, won a regional physics olympiad, programmed video games, earned three language certifications, designed in 3D, edited videos, and built his own way of seeing the world from the inside out.</p>
+    <p>Ekain is introverted and feels emotions intensely, though he often keeps his inner world private. He is careful about trust, but still wants to help people.</p>
+    <p>Empathy, personal values and a wish to support others are important parts of his personality.</p>
+    <p>The symbols ❄ and 💥 are opposites that complete each other's meaning, and both are essential: ❄ represents everything good, while 💥 represents everything bad.</p>
   </div>
-  <blockquote class="reveal reveal-delay-2">"The most interesting thing about Ekain is not what he has already done. It is what he is about to begin."</blockquote>
+  <blockquote class="reveal reveal-delay-2">A personal portrait, in progress.</blockquote>
   <div class="portrait-glow reveal reveal-delay-3">
     <svg width="70" height="70" viewBox="0 0 100 100" style="filter:drop-shadow(0 0 25px rgba(53,165,224,0.9)) drop-shadow(0 0 50px rgba(112,196,240,0.5));animation:floatSpin 22s linear infinite;display:inline-block;margin-bottom:2rem" aria-label="Snowflake">
       <g style="stroke:#70c4f0;stroke-width:2;fill:none;stroke-linecap:round" transform="translate(50,50)">
@@ -1554,25 +1674,12 @@ footer{
         <circle cx="0" cy="0" r="5" stroke-width="2"/>
       </g>
     </svg>
-    <blockquote style="border:none;padding:0;font-size:clamp(1.2rem,1.6vw,1.7rem);text-align:center;color:var(--ice2);text-shadow:0 0 25px rgba(112,196,240,0.5)">"A snowflake is unique, cold to the touch, and yet capable of transforming every landscape it settles on."</blockquote>
+    <p style="margin:.5rem auto 0;text-align:center;font-family:var(--serif);font-size:1.1rem;color:var(--ice1)">Snow and ice are personal symbols in Ekain's inner world.</p>
   </div>
 </section>
 
 <footer>
-  <button class="final-snowflake-btn" id="finalSnowflakeBtn" aria-label="Spawn snowflakes">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <g class="sf" transform="translate(50,50)">
-        <line x1="0" y1="-42" x2="0" y2="42"/>
-        <line x1="-36.4" y1="-21" x2="36.4" y2="21"/>
-        <line x1="36.4" y1="-21" x2="-36.4" y2="21"/>
-        <line x1="-10" y1="-20" x2="0" y2="-42"/><line x1="10" y1="-20" x2="0" y2="-42"/>
-        <line x1="-10" y1="20" x2="0" y2="42"/><line x1="10" y1="20" x2="0" y2="42"/>
-        <circle cx="0" cy="0" r="4" stroke-width="1.5"/>
-      </g>
-    </svg>
-  </button>
-  <div style="color:var(--muted)">Donostia-San Sebastián · May 2026</div>
-  <div style="margin-top:.6rem;font-size:.7rem">Personal & Confidential</div>
+  <div style="color:var(--muted)">A personal page · 2026</div>
 </footer>
 
 <script>
@@ -2018,150 +2125,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   });
 });
 
-// HERO SNOWFLAKE CLICK EFFECT
-function createSnowflakeBurst(x, y, count = 12) {
-  for (let i = 0; i < count; i++) {
-    const particle = document.createElement('div');
-    particle.style.cssText = `
-      position: fixed;
-      width: 6px;
-      height: 6px;
-      background: var(--ice2);
-      border-radius: 50%;
-      pointer-events: none;
-      z-index: 1000;
-      left: ${x}px;
-      top: ${y}px;
-      box-shadow: 0 0 10px var(--glow);
-    `;
-    document.body.appendChild(particle);
-    
-    const angle = (i / count) * Math.PI * 2;
-    const velocity = 150 + Math.random() * 100;
-    const vx = Math.cos(angle) * velocity;
-    const vy = Math.sin(angle) * velocity;
-    
-    let px = 0, py = 0, opacity = 1;
-    const animate = () => {
-      px += vx * 0.016;
-      py += vy * 0.016;
-      opacity -= 0.02;
-      particle.style.transform = `translate(${px}px, ${py}px)`;
-      particle.style.opacity = opacity;
-      if (opacity > 0) {
-        requestAnimationFrame(animate);
-      } else {
-        particle.remove();
-      }
-    };
-    requestAnimationFrame(animate);
-  }
-}
-
-document.querySelector('.hero-snowflake-svg').addEventListener('click', (e) => {
-  const rect = e.target.getBoundingClientRect();
-  createSnowflakeBurst(rect.left + rect.width / 2, rect.top + rect.height / 2);
-});
-
-// CREATE CLICKABLE SNOWFLAKES THROUGHOUT THE PAGE
-function createClickableSnowflake(x, y, size) {
-  const snowflake = document.createElement('div');
-  snowflake.className = 'clickable-snowflake';
-  snowflake.style.left = x + 'px';
-  snowflake.style.top = y + 'px';
-  snowflake.style.width = size + 'px';
-  snowflake.style.height = size + 'px';
-  snowflake.innerHTML = `
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-      <g class="sf" transform="translate(50,50)">
-        <line x1="0" y1="-42" x2="0" y2="42"/>
-        <line x1="-36.4" y1="-21" x2="36.4" y2="21"/>
-        <line x1="36.4" y1="-21" x2="-36.4" y2="21"/>
-        <line x1="-10" y1="-20" x2="0" y2="-42"/><line x1="10" y1="-20" x2="0" y2="-42"/>
-        <line x1="-10" y1="20" x2="0" y2="42"/><line x1="10" y1="20" x2="0" y2="42"/>
-        <circle cx="0" cy="0" r="4" stroke-width="1.5"/>
-      </g>
-    </svg>
-  `;
-  
-  snowflake.addEventListener('click', function(e) {
-    e.stopPropagation();
-    const rect = this.getBoundingClientRect();
-    createSnowflakeBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 8);
-    this.style.transform = 'scale(0)';
-    this.style.opacity = '0';
-    setTimeout(() => this.remove(), 300);
-  });
-  
-  // Touch support
-  snowflake.addEventListener('touchend', function(e) {
-    e.preventDefault();
-    const rect = this.getBoundingClientRect();
-    createSnowflakeBurst(rect.left + rect.width / 2, rect.top + rect.height / 2, 8);
-    this.style.transform = 'scale(0)';
-    this.style.opacity = '0';
-    setTimeout(() => this.remove(), 300);
-  }, { passive: false });
-  
-  document.body.appendChild(snowflake);
-  return snowflake;
-}
-
-// Spawn initial clickable snowflakes at random positions
-function spawnRandomSnowflakes(count) {
-  for (let i = 0; i < count; i++) {
-    const x = Math.random() * (window.innerWidth - 60) + 30;
-    const y = Math.random() * (document.body.scrollHeight - 200) + 100;
-    const size = 25 + Math.random() * 25;
-    createClickableSnowflake(x, y, size);
-  }
-}
-
-// Spawn some initial snowflakes after page loads
-setTimeout(() => {
-  spawnRandomSnowflakes(8);
-}, 2000);
-
-// FINAL SNOWFLAKE BUTTON - SPAWN MANY CLICKABLE SNOWFLAKES
-document.getElementById('finalSnowflakeBtn').addEventListener('click', function(e) {
-  const rect = this.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-  
-  // Create burst effect from button
-  createSnowflakeBurst(centerX, centerY, 16);
-  
-  // Spawn multiple clickable snowflakes in visible area
-  const viewportHeight = window.innerHeight;
-  const scrollY = window.scrollY;
-  
-  for (let i = 0; i < 15; i++) {
-    setTimeout(() => {
-      const x = Math.random() * (window.innerWidth - 80) + 40;
-      const y = scrollY + Math.random() * viewportHeight;
-      const size = 30 + Math.random() * 30;
-      const sf = createClickableSnowflake(x, y, size);
-      
-      // Animate in from random direction
-      const startX = (Math.random() - 0.5) * 200;
-      const startY = (Math.random() - 0.5) * 200;
-      sf.style.opacity = '0';
-      sf.style.transform = `translate(${startX}px, ${startY}px) scale(0.5)`;
-      
-      requestAnimationFrame(() => {
-        sf.style.transition = 'transform 0.6s var(--ease), opacity 0.6s var(--ease)';
-        sf.style.opacity = '1';
-        sf.style.transform = 'translate(0, 0) scale(1)';
-      });
-    }, i * 80);
-  }
-});
-
-// Touch support for final button
-document.getElementById('finalSnowflakeBtn').addEventListener('touchend', function(e) {
-  e.preventDefault();
-  this.click();
-}, { passive: false });
 </script>
 </body>
 </html>
+
